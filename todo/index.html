@@ -14,23 +14,19 @@
 				<h1>todos</h1>
 				<todo-input></todo-input>
 			</header>
-			<!-- This section should be hidden by default and shown when there are todos -->
-			<section class="main">
+			<section class="main" is="todo-only">
 				<todo-toggle-all></todo-toggle-all>
 				<ul class="todo-list" is="todo-list"></ul>
 			</section>
-			<!-- This footer should be hidden by default and shown when there are todos -->
-			<footer class="footer">
-				<!-- This should be `0 items left` by default -->
+			<footer class="footer" is="todo-only">
 				<span class="todo-count" is="todo-count"></span>
 				<todo-filters></todo-filters>
-				<!-- Hidden if no completed items are left ↓ -->
 				<button class="clear-completed" is="todo-clear"></button>
 			</footer>
 		</section>
 		<footer class="info">
 			<p>Double-click to edit a todo</p>
-			<p>Created by <a href="http://todomvc.com">Yannick Bochatay</a></p>
+			<p>Created by <a href="https://github.com/YannickBochatay">Yannick Bochatay</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
 		<!-- Scripts here. Don't remove ↓
