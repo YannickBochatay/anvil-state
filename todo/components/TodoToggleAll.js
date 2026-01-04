@@ -16,9 +16,9 @@ class TodoToggleAll extends HTMLElement {
 	}
 	
 	#toggleAll = () => {
-		let allDone = tasks.every(task => task.done);
-		if (allDone) tasks.forEach(task => { if (task.done) task.done = false; });
-		else tasks.forEach(task => { if (!task.done) task.done = true; });
+		let allDone = tasks.every(task => task.completed);
+		if (allDone) tasks.forEach(task => { if (task.completed) task.completed = false; });
+		else tasks.forEach(task => { if (!task.completed) task.completed = true; });
 	}
 
 	connectedCallback() {

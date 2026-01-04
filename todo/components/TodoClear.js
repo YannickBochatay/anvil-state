@@ -10,7 +10,7 @@ class TodoClear extends HTMLButtonElement {
 	handleEvent() {
 		let doneIndex;
 		while (doneIndex !== -1) {
-			doneIndex = tasks.findIndex(task => task.done);
+			doneIndex = tasks.findIndex(task => task.completed);
 			if (doneIndex !== -1) tasks.splice(doneIndex, 1);
 		}
 	}

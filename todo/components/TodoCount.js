@@ -3,11 +3,11 @@ import { tasks, onStateChange, offStateChange } from "../state.js";
 class TodoCount extends HTMLSpanElement {
 	
 	get #count() {
-	  return tasks.reduce((sum, item) => item.done ? sum : sum+1, 0);
+	  return tasks.reduce((sum, item) => item.completed ? sum : sum+1, 0);
 	}
 
 	#handleStateChange = prop => {
-		if (prop === "done" || prop === "length") this.#update();
+		if (prop === "completed" || prop === "length") this.#update();
 	}
 	
 	#update() {

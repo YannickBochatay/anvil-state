@@ -2,7 +2,7 @@ import { tasks } from "../state.js";
 
 class TodoLi extends HTMLLIElement {
 
-	static observedAttributes = ["index", "label", "done"]
+	static observedAttributes = ["index", "label", "completed"]
 
 	constructor() {
 		super();
@@ -44,14 +44,14 @@ class TodoLi extends HTMLLIElement {
 		return this.setAttribute("label", label);
 	}
 
-	get done() {
-		return Boolean(this.getAttribute("done"));
+	get completed() {
+		return Boolean(this.getAttribute("completed"));
 	}
 
-	set done(bool) {
-		if (typeof bool !== "boolean") throw new TypeError("done must be a boolean");
-		if (bool) return this.setAttribute("done", "done");
-		else this.removeAttribute("done");		
+	set completed(bool) {
+		if (typeof bool !== "boolean") throw new TypeError("completed must be a boolean");
+		if (bool) return this.setAttribute("completed", "completed");
+		else this.removeAttribute("completed");		
 	}
     
   #editTask = () => {
@@ -84,7 +84,7 @@ class TodoLi extends HTMLLIElement {
 		if (name === "label") this.querySelector("label").textContent = newValue;
 		else if (name === "index") {
 			this.querySelectorAll("[index]").forEach(node => node.setAttribute("index", newValue))
-		} else if (name === "done") {
+		} else if (name === "completed") {
 			this.classList[newValue ? "add" : "remove"]("completed");
 			this.querySelector("input.toggle").checked = newValue;
 		}
