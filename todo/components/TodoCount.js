@@ -1,6 +1,6 @@
-import { state, subscribe, unsubscribe } from "../AnvilState.js";
+import { state, subscribe, unsubscribe } from "../TodoState.js";
 
-class AnvilCount extends HTMLSpanElement {
+class TodoCount extends HTMLSpanElement {
 	
 	get #count() {
 	  return state.reduce((sum, item) => item.done ? sum : sum+1, 0);
@@ -21,4 +21,4 @@ class AnvilCount extends HTMLSpanElement {
 	}
 }
 
-customElements.define("anvil-count", AnvilCount, { extends : "span" });
+customElements.define("todo-count", TodoCount, { extends : "span" });

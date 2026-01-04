@@ -1,6 +1,6 @@
-import { state } from "../AnvilState.js";
+import { state } from "../TodoState.js";
 
-class AnvilLi extends HTMLLIElement {
+class TodoLi extends HTMLLIElement {
 
 	static observedAttributes = ["index", "label", "done"]
 
@@ -12,11 +12,11 @@ class AnvilLi extends HTMLLIElement {
 			<div class="view">
 				<input
 					class="toggle"
-					is="anvil-toggle"
+					is="todo-toggle"
 					index="-1"
 				>
 				<label></label>
-				<button class="destroy" is="anvil-destroy" index="-1"></button>
+				<button class="destroy" is="todo-destroy" index="-1"></button>
 			</div>
 			<form>
 				<input class="edit">
@@ -92,4 +92,4 @@ class AnvilLi extends HTMLLIElement {
   
 }
 
-customElements.define("anvil-li", AnvilLi, { extends: "li" });
+customElements.define("todo-li", TodoLi, { extends: "li" });

@@ -1,6 +1,6 @@
-import { state } from "../AnvilState.js";
+import { state } from "../TodoState.js";
 
-class AnvilToggle extends HTMLInputElement {
+class TodoToggle extends HTMLInputElement {
 	
   constructor() {
     super();
@@ -21,4 +21,4 @@ class AnvilToggle extends HTMLInputElement {
   }
 }
 
-customElements.define("anvil-toggle", AnvilToggle, { extends : "input" });
+customElements.define("todo-toggle", TodoToggle, { extends : "input" });

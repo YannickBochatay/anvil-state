@@ -1,6 +1,6 @@
-import { state, subscribe, unsubscribe } from "../AnvilState.js";
+import { state, subscribe, unsubscribe } from "../TodoState.js";
 
-class AnvilUl extends HTMLUListElement {
+class TodoUl extends HTMLUListElement {
 	
   #isHidden(item) {
 		return location.hash === "#/active" && item.done || location.hash === "#/completed" && !item.done;
@@ -9,7 +9,7 @@ class AnvilUl extends HTMLUListElement {
 	#render = () => {
 
 		state.forEach((task, index) => {
-			let li = this.children[index] ?? document.createElement("li", { is : "anvil-li" });
+			let li = this.children[index] ?? document.createElement("li", { is : "todo-li" });
 			
 			if (li.label !== task.label) li.label = task.label;
 			if (li.done !== task.done) li.done = task.done;
@@ -35,4 +35,4 @@ class AnvilUl extends HTMLUListElement {
   }
 }
 
-customElements.define("anvil-ul", AnvilUl, { extends : "ul" });
+customElements.define("todo-ul", TodoUl, { extends : "ul" });

@@ -1,6 +1,6 @@
-import { state } from "../AnvilState.js";
+import { state } from "../TodoState.js";
 
-class AnvilInput extends HTMLElement {
+class TodoInput extends HTMLElement {
 	
   #form
   
@@ -28,4 +28,4 @@ class AnvilInput extends HTMLElement {
 	}
 }
 
-customElements.define("anvil-input", AnvilInput);
+customElements.define("todo-input", TodoInput);

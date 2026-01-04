@@ -1,4 +1,4 @@
-class AnvilFilters extends HTMLElement {
+class TodoFilters extends HTMLElement {
 	
 	#update = () => {
 		this.querySelectorAll("a").forEach(node => node.classList.remove("selected"));
@@ -37,4 +37,4 @@ class AnvilFilters extends HTMLElement {
 	}
 }
 
-customElements.define("anvil-filters", AnvilFilters);
+customElements.define("todo-filters", TodoFilters);

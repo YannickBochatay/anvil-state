@@ -1,6 +1,6 @@
-import { state } from "../AnvilState.js";
+import { state } from "../TodoState.js";
 
-class AnvilToggleAll extends HTMLElement {
+class TodoToggleAll extends HTMLElement {
 	
 	#toggleAll = () => {
 		let allDone = state.every(task => task.done);
@@ -22,4 +22,4 @@ class AnvilToggleAll extends HTMLElement {
 	}
 }
 
-customElements.define("anvil-toggle-all", AnvilToggleAll);
+customElements.define("todo-toggle-all", TodoToggleAll);

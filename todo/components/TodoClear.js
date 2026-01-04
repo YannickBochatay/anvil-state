@@ -1,6 +1,6 @@
-import { state } from "../AnvilState.js";
+import { state } from "../TodoState.js";
 
-class AnvilClear extends HTMLButtonElement {
+class TodoClear extends HTMLButtonElement {
 	
 	handleEvent() {
 		let doneIndex;
@@ -16,4 +16,4 @@ class AnvilClear extends HTMLButtonElement {
 	}
 }
 
-customElements.define("anvil-clear", AnvilClear, { extends : "button" });
+customElements.define("todo-clear", TodoClear, { extends : "button" });

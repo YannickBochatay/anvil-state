@@ -1,6 +1,6 @@
-import { state } from "../AnvilState.js";
+import { state } from "../TodoState.js";
 
-class AnvilDestroy extends HTMLButtonElement {
+class TodoDestroy extends HTMLButtonElement {
 	  	
   handleEvent() {
     state.splice(this.getAttribute("index"), 1);
@@ -12,4 +12,4 @@ class AnvilDestroy extends HTMLButtonElement {
   
 }
 
-customElements.define("anvil-destroy", AnvilDestroy, { extends : "button" });
+customElements.define("todo-destroy", TodoDestroy, { extends : "button" });

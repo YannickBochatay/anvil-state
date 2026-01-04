@@ -1,4 +1,4 @@
-class AnvilState {
+class TodoState {
 
   #listeners = {}
   
@@ -51,4 +51,4 @@ class AnvilState {
 	}
 }
 
-export const { state, subscribe, unsubscribe } = new AnvilState([{ label : "buy a unicorn", done : false }])
+export const { state, subscribe, unsubscribe } = new TodoState([{ label : "buy a unicorn", done : false }])
