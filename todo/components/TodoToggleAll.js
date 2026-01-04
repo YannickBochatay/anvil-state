@@ -1,4 +1,4 @@
-import { tasks } from "../todoState.js";
+import { tasks } from "../state.js";
 
 class TodoToggleAll extends HTMLElement {
 	

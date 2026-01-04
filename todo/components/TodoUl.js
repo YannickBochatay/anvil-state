@@ -1,4 +1,4 @@
-import { tasks, subscribe, unsubscribe } from "../todoState.js";
+import { tasks, onStateChange, offStateChange } from "../state.js";
 
 class TodoUl extends HTMLUListElement {
 	
@@ -25,12 +25,12 @@ class TodoUl extends HTMLUListElement {
       
   connectedCallback() {
 		this.#render();
-		subscribe("*.*", this.#render);
+		onStateChange(this.#render);
 		addEventListener("hashchange", this.#render);
   }
   
   disconnectedCallback() {
-    unsubscribe("*.*", this.#render);
+    offStateChange(this.#render);
 		removeEventListener("hashchange", this.#render);
   }
 }
