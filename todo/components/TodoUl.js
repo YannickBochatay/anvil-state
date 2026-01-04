@@ -1,4 +1,4 @@
-import { state, subscribe, unsubscribe } from "../todoState.js";
+import { tasks, subscribe, unsubscribe } from "../todoState.js";
 
 class TodoUl extends HTMLUListElement {
 	
@@ -8,7 +8,7 @@ class TodoUl extends HTMLUListElement {
     
 	#render = () => {
 
-		state.forEach((task, index) => {
+		tasks.forEach((task, index) => {
 			let li = this.children[index] ?? document.createElement("li", { is : "todo-li" });
 			
 			if (li.label !== task.label) li.label = task.label;
@@ -20,7 +20,7 @@ class TodoUl extends HTMLUListElement {
 			if (!li.parentNode) this.append(li);
 		})
 
-		while (this.children.length > state.length) this.lastElementChild.remove();
+		while (this.children.length > tasks.length) this.lastElementChild.remove();
 	}
       
   connectedCallback() {

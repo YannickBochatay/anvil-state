@@ -1,12 +1,12 @@
-import { state } from "../todoState.js";
+import { tasks } from "../todoState.js";
 
 class TodoClear extends HTMLButtonElement {
 	
 	handleEvent() {
 		let doneIndex;
 		while (doneIndex !== -1) {
-			doneIndex = state.findIndex(task => task.done);
-			if (doneIndex !== -1) state.splice(doneIndex, 1);
+			doneIndex = tasks.findIndex(task => task.done);
+			if (doneIndex !== -1) tasks.splice(doneIndex, 1);
 		}
 	}
 

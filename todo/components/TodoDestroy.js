@@ -1,9 +1,9 @@
-import { state } from "../todoState.js";
+import { tasks } from "../todoState.js";
 
 class TodoDestroy extends HTMLButtonElement {
 	  	
   handleEvent() {
-    state.splice(this.getAttribute("index"), 1);
+    tasks.splice(this.getAttribute("index"), 1);
   }
     
   connectedCallback() {

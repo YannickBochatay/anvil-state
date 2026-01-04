@@ -1,9 +1,9 @@
-import { state, subscribe, unsubscribe } from "../todoState.js";
+import { tasks, subscribe, unsubscribe } from "../todoState.js";
 
 class TodoCount extends HTMLSpanElement {
 	
 	get #count() {
-	  return state.reduce((sum, item) => item.done ? sum : sum+1, 0);
+	  return tasks.reduce((sum, item) => item.done ? sum : sum+1, 0);
 	}
 	
 	#update = () => {
@@ -13,11 +13,11 @@ class TodoCount extends HTMLSpanElement {
 	
 	connectedCallback() {
 	  this.#update();
-	  subscribe("*.done", this.#update);
+	  subscribe("tasks.*.done", this.#update);
 	}
 	
 	disconnectedCallback() {
-	  unsubscribe("*.done", this.#update);
+	  unsubscribe("tasks.*.done", this.#update);
 	}
 }
 

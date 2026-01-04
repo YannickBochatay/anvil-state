@@ -1,4 +1,4 @@
-import { state } from "../todoState.js";
+import { tasks } from "../todoState.js";
 
 class TodoToggle extends HTMLInputElement {
 	
@@ -9,7 +9,7 @@ class TodoToggle extends HTMLInputElement {
 	
   handleEvent() {
     let { index } = this;
-	  state[index].done = !state[index].done;
+	  tasks[index].done = !tasks[index].done;
   }
     
   get index() {

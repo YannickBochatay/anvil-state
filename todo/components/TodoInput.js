@@ -1,4 +1,4 @@
-import { state } from "../todoState.js";
+import { tasks } from "../todoState.js";
 
 class TodoInput extends HTMLElement {
 	
@@ -7,7 +7,7 @@ class TodoInput extends HTMLElement {
   #submit = e => {
     e.preventDefault();
     let label = this.querySelector("#new-task").value;
-    state.push({ label, done : false });
+    tasks.push({ label, done : false });
 		this.#form.reset();
   }
   

@@ -1,4 +1,4 @@
-import { state } from "../todoState.js";
+import { tasks } from "../todoState.js";
 
 class TodoLi extends HTMLLIElement {
 
@@ -58,7 +58,7 @@ class TodoLi extends HTMLLIElement {
 		this.classList.add("editing");
 		
 		let input = this.querySelector(".edit");
-		input.value = state[this.index].label;
+		input.value = tasks[this.index].label;
 		input.focus();
 		input.selectionStart = input.selectionEnd = input.value.length;
   }
@@ -71,7 +71,7 @@ class TodoLi extends HTMLLIElement {
 		e.preventDefault();
 		this.classList.remove("editing");
 		let label = this.querySelector(".edit").value;
-		state[this.index].label = label;
+		tasks[this.index].label = label;
   }
   
   connectedCallback() {
