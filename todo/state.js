@@ -15,14 +15,14 @@ function createState(state) {
     }
   });
 }
-  
+
 export function onStateChange(callback) {
-	listeners.push(callback);
+  listeners.push(callback);
 }
 
 export function offStateChange(callback) {
-	let index = listeners.findIndex(listener => listener === callback);
-	if (index !== -1) listeners.splice(index,1);
+  let index = listeners.findIndex(listener => listener === callback);
+  if (index !== -1) listeners.splice(index,1);
 }
 
 export const state = createState({

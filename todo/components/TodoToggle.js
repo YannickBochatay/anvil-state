@@ -1,19 +1,19 @@
 import { tasks } from "../state.js";
 
 class TodoToggle extends HTMLInputElement {
-	
+  
   constructor() {
     super();
     this.setAttribute("type", "checkbox");
   }
-	
+  
   handleEvent() {
     let { index } = this;
-	  tasks[index].completed = !tasks[index].completed;
+    tasks[index].completed = !tasks[index].completed;
   }
-    
+  
   get index() {
-	  return this.getAttribute("index");
+    return this.getAttribute("index");
   }
   
   connectedCallback() {

@@ -2,10 +2,10 @@ import { state, tasks, onStateChange, offStateChange } from "../state.js";
 
 class TodoList extends HTMLUListElement {
 	
-  #isHidden(item) {
+	#isHidden(item) {
 		return state.filter === "active" && item.completed || state.filter === "completed" && !item.completed;
-  }
-    
+	}
+	
 	#render = () => {
 		tasks.forEach((task, index) => {
 			let li = this.children[index] ?? document.createElement("li", { is : "todo-item" });
@@ -18,18 +18,18 @@ class TodoList extends HTMLUListElement {
 			
 			if (!li.parentNode) this.append(li);
 		})
-
+		
 		while (this.children.length > tasks.length) this.lastElementChild.remove();
 	}
-      
-  connectedCallback() {
+	
+	connectedCallback() {
 		this.#render();
 		onStateChange(this.#render);
-  }
-  
-  disconnectedCallback() {
-    offStateChange(this.#render);
-  }
+	}
+	
+	disconnectedCallback() {
+		offStateChange(this.#render);
+	}
 }
 
 customElements.define("todo-list", TodoList, { extends : "ul" });

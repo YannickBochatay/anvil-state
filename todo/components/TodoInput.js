@@ -15,22 +15,22 @@ template.innerHTML = `
 
 class TodoInput extends HTMLElement {
 	
-  #form
-
+	#form
+	
 	constructor() {
 		super();
 		this.append(template.content.cloneNode(true));
 		this.#form = this.querySelector("form");
 	}
-  
-  #submit = e => {
-    e.preventDefault();
-    let label = this.querySelector("#new-task").value;
-    tasks.push({ label, completed : false });
+	
+	#submit = e => {
+		e.preventDefault();
+		let label = this.querySelector("#new-task").value;
+		tasks.push({ label, completed : false });
 		this.#form.reset();
-  }
-  
-  connectedCallback() {
+	}
+	
+	connectedCallback() {
 		this.#form.addEventListener("submit", this.#submit); 
 	}
 }

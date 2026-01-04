@@ -9,7 +9,7 @@ template.innerHTML = `
 `
 
 class TodoToggleAll extends HTMLElement {
-
+	
 	constructor() {
 		super();
 		this.append(template.content.cloneNode(true));
@@ -20,7 +20,7 @@ class TodoToggleAll extends HTMLElement {
 		if (allDone) tasks.forEach(task => { if (task.completed) task.completed = false; });
 		else tasks.forEach(task => { if (!task.completed) task.completed = true; });
 	}
-
+	
 	connectedCallback() {
 		let input = this.querySelector("#toggle-all");
 		input.addEventListener("change", this.#toggleAll);	
