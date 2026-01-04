@@ -1,4 +1,4 @@
-import { state, subscribe, unsubscribe } from "../TodoState.js";
+import { state, subscribe, unsubscribe } from "../todoState.js";
 
 class TodoUl extends HTMLUListElement {
 	

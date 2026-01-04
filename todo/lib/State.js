@@ -1,4 +1,4 @@
-class TodoState {
+export class State {
 
   #listeners = {}
   
@@ -50,5 +50,3 @@ class TodoState {
 		this.#listeners[prop].splice(index,1);
 	}
 }
-
-export const { state, subscribe, unsubscribe } = new TodoState([{ label : "buy a unicorn", done : false }])

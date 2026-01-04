@@ -1,4 +1,4 @@
-import { state } from "../TodoState.js";
+import { state } from "../todoState.js";
 
 class TodoToggleAll extends HTMLElement {
 	
