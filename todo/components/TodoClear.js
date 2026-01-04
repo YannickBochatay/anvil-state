@@ -1,4 +1,4 @@
-import { tasks } from "../state.js";
+import { tasks, onStateChange, offStateChange } from "../state.js";
 
 class TodoClear extends HTMLButtonElement {
 
@@ -15,8 +15,23 @@ class TodoClear extends HTMLButtonElement {
 		}
 	}
 
+	#update() {
+		let show = tasks.some(task => task.completed);
+		this.style.display = show ? "inline" : "none";
+	}
+
+	#handleStateChange = prop => {
+		if (prop === "completed") this.#update();
+	}
+
 	connectedCallback() {
+		this.#update();
 		this.addEventListener("click", this);
+		onStateChange(this.#handleStateChange);
+	}
+
+	disconnectedCallback() {
+		offStateChange(this.#handleStateChange);
 	}
 }
 
