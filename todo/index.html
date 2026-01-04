@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Template • TodoMVC</title>
+		<link rel="stylesheet" href="common/base.css">
+		<link rel="stylesheet" href="common/app.css">
+		<script src="components/index.js" type="module"></script>
+	</head>
+	<body>
+		<section class="todoapp">
+			<header class="header">
+				<h1>todos</h1>
+				<anvil-input></anvil-input>
+			</header>
+			<!-- This section should be hidden by default and shown when there are todos -->
+			<section class="main">
+				<anvil-toggle-all></anvil-toggle-all>
+				<ul class="todo-list" is="anvil-ul"></ul>
+			</section>
+			<!-- This footer should be hidden by default and shown when there are todos -->
+			<footer class="footer">
+				<!-- This should be `0 items left` by default -->
+				<span class="todo-count" is="anvil-count"></span>
+				<!-- Remove this if you don't implement routing -->
+				<anvil-filters></anvil-filters>
+				<!-- Hidden if no completed items are left ↓ -->
+				<button class="clear-completed" is="anvil-clear"></button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<!-- Remove the below line ↓ -->
+			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+			<!-- Change this out with your name and url ↓ -->
+			<p>Created by <a href="http://todomvc.com">Yannick Bochatay</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<!-- Scripts here. Don't remove ↓
+		<script src="node_modules/todomvc-common/base.js"></script> -->
+	</body>
+</html>
