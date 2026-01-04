@@ -1,6 +1,6 @@
 import { tasks } from "../state.js";
 
-class TodoLi extends HTMLLIElement {
+class TodoItem extends HTMLLIElement {
 
 	static observedAttributes = ["index", "label", "completed"]
 
@@ -92,4 +92,4 @@ class TodoLi extends HTMLLIElement {
   
 }
 
-customElements.define("todo-li", TodoLi, { extends: "li" });
+customElements.define("todo-item", TodoItem, { extends: "li" });

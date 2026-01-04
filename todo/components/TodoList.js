@@ -1,6 +1,6 @@
 import { state, tasks, onStateChange, offStateChange } from "../state.js";
 
-class TodoUl extends HTMLUListElement {
+class TodoList extends HTMLUListElement {
 	
   #isHidden(item) {
 		return state.filter === "active" && item.completed || state.filter === "completed" && !item.completed;
@@ -8,7 +8,7 @@ class TodoUl extends HTMLUListElement {
     
 	#render = () => {
 		tasks.forEach((task, index) => {
-			let li = this.children[index] ?? document.createElement("li", { is : "todo-li" });
+			let li = this.children[index] ?? document.createElement("li", { is : "todo-item" });
 			
 			if (li.label !== task.label) li.label = task.label;
 			if (li.completed !== task.completed) li.completed = task.completed;
@@ -32,4 +32,4 @@ class TodoUl extends HTMLUListElement {
   }
 }
 
-customElements.define("todo-ul", TodoUl, { extends : "ul" });
+customElements.define("todo-list", TodoList, { extends : "ul" });
