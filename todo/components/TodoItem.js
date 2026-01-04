@@ -18,9 +18,7 @@ class TodoItem extends HTMLLIElement {
 				<label></label>
 				<button class="destroy" is="todo-destroy" index="-1"></button>
 			</div>
-			<form>
-				<input class="edit">
-			</form>
+			<todo-edit disabled value=""></todo-edit>
 		`;
 		
 		this.append(template.content.cloneNode(true));	
@@ -45,48 +43,43 @@ class TodoItem extends HTMLLIElement {
 	}
 
 	get completed() {
-		return Boolean(this.getAttribute("completed"));
+		return this.hasAttribute("completed");
 	}
 
 	set completed(bool) {
-		if (typeof bool !== "boolean") throw new TypeError("completed must be a boolean");
-		if (bool) return this.setAttribute("completed", "completed");
+		if (Boolean(bool)) return this.setAttribute("completed", "");
 		else this.removeAttribute("completed");		
 	}
     
   #editTask = () => {
 		this.classList.add("editing");
-		
-		let input = this.querySelector(".edit");
-		input.value = tasks[this.index].label;
-		input.focus();
-		input.selectionStart = input.selectionEnd = input.value.length;
+		this.querySelector("todo-edit").disabled = false;
   }
   
-  #cancelEditTask = () => {
-		this.classList.remove("editing");
-  }
+  #cancelEditTask = () => this.classList.remove("editing");
   
   #validateTask = e => {
-		e.preventDefault();
 		this.classList.remove("editing");
-		let label = this.querySelector(".edit").value;
-		tasks[this.index].label = label;
-  }
+		tasks[this.index].label = e.detail;
+	}
   
   connectedCallback() {
+		let editNode = this.querySelector("todo-edit");
+		editNode.addEventListener("validate", this.#validateTask);
+		editNode.addEventListener("cancel", this.#cancelEditTask);
+
 		this.querySelector("label").addEventListener("dblclick", this.#editTask);
-		this.querySelector(".edit").addEventListener("blur", this.#cancelEditTask);
-		this.querySelector("form").addEventListener("submit", this.#validateTask);
   }
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "label") this.querySelector("label").textContent = newValue;
-		else if (name === "index") {
+		if (name === "label") {
+			this.querySelector("label").textContent = newValue;
+			this.querySelector("todo-edit").value = newValue;
+		} else if (name === "index") {
 			this.querySelectorAll("[index]").forEach(node => node.setAttribute("index", newValue))
 		} else if (name === "completed") {
-			this.classList[newValue ? "add" : "remove"]("completed");
-			this.querySelector("input.toggle").checked = newValue;
+			this.classList[newValue == null ? "remove" : "add"]("completed");
+			this.querySelector("input.toggle").checked = newValue != null;
 		}
 	}
   
