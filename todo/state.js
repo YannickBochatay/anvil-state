@@ -3,9 +3,8 @@ let listeners = [];
 function createState(state) {
   return new Proxy(state, {
     set : (state, prop, value) => {
-      let prevValue = state[value];
       state[prop] = value;
-      listeners.forEach(callback => callback(prop, prevValue, value));
+      listeners.forEach(callback => callback(prop, value));
       return true;
     },
     get : (state, prop) => {
