@@ -1,20 +1,16 @@
 class AnvilState {
 
-  #listeners = {
-		change : {},
-		add : {},
-    remove : {}  
-  }
+  #listeners = {}
   
   constructor(initialState) {
 		this.state = this.#createProxy(initialState);
   }
   
-  #getListeners(action, prefix, prop) {
+  #getListeners(prefix, prop) {
     let pattern = prefix.replaceAll(/([^.]+)(\.|$)/g, "($1|\\*)$2\\.");
 		let reg = new RegExp(`${pattern}(${prop}|\\*)`);
 		  
-		return Object.entries(this.#listeners[action])
+		return Object.entries(this.#listeners)
 			.filter(([name, value]) => reg.test(name))
 			.flatMap(([name, value]) => value);
   }
@@ -29,7 +25,7 @@ class AnvilState {
 				let prevValue = state[value];
 				let propName = this.#getPropName(prefix, prop);
 				state[prop] = value;
-				this.#getListeners("change", prefix, prop).forEach(callback => callback(propName, prevValue, value));
+				this.#getListeners(prefix, prop).forEach(callback => callback(propName, prevValue, value));
 				return true;
 			},
 			get : (state, prop) => {
@@ -39,42 +35,20 @@ class AnvilState {
 					let prefixName = this.#getPropName(prefix, prop);
 					return this.#createProxy(state[prop], prefixName);
 				} else return state[prop];
-			},
-			defineProperty : (state, prop, value) => {
-				console.log("add", prefix, prop, value);
-				let prevValue = state[value];
-				let propName = this.#getPropName(prefix, prop);
-				state[prop] = value;
-				this.#getListeners("add", prefix, prop).forEach(callback => callback(propName, prevValue, value));
-				return true;
-			},
-			deleteProperty : (state, prop) => {
-				console.log("delete", prefix, prop);
-				let prevValue = state[prop];
-				let propName = this.#getPropName(prefix, prop);
-				delete state[prop];
-				this.#getListeners("remove", prefix, prop).forEach(callback => callback(propName, prevValue));
-				return true;
 			}
     });
   }
   
-  #checkAction(action) {
-	if (!(action in this.#listeners)) throw new Error(action + " : unknown action ('add', 'change', 'remove' required)");
-  }
-  
-  subscribe = ({ action = "change", prop = "*", callback }) => {
-	this.#checkAction(action);
-	if (!this.#listeners[action][prop]) this.#listeners[action][prop] = [];
-	this.#listeners[action][prop].push(callback);
+	subscribe = (prop, callback) => {
+		if (!this.#listeners[prop]) this.#listeners[prop] = [];
+		this.#listeners[prop].push(callback);
   }
 
-  unsubscribe = ({ action = "change", prop = "*", callback }) => {
-	this.#checkAction(action);
-	if (!this.#listeners[action][prop]) return;
-    let index = this.#listeners[action][prop].findIndex(listener => listener === callback);
-    this.#listeners[action][prop].splice(index,1);
-  }
+  unsubscribe = (prop, callback) => {
+		if (!this.#listeners[prop]) return;
+		let index = this.#listeners[prop].findIndex(listener => listener === callback);
+		this.#listeners[prop].splice(index,1);
+	}
 }
 
 export const { state, subscribe, unsubscribe } = new AnvilState([{ label : "buy a unicorn", done : false }])

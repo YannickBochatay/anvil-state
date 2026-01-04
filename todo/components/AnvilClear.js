@@ -3,7 +3,7 @@ import { state } from "../AnvilState.js";
 class AnvilClear extends HTMLButtonElement {
 	
 	handleEvent() {
-		let doneIndex
+		let doneIndex;
 		while (doneIndex !== -1) {
 			doneIndex = state.findIndex(task => task.done);
 			if (doneIndex !== -1) state.splice(doneIndex, 1);

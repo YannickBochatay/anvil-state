@@ -7,6 +7,7 @@ class AnvilUl extends HTMLUListElement {
   }
     
 	#render = () => {
+
 		state.forEach((task, index) => {
 			let li = this.children[index] ?? document.createElement("li", { is : "anvil-li" });
 			
@@ -18,17 +19,18 @@ class AnvilUl extends HTMLUListElement {
 			
 			if (!li.parentNode) this.append(li);
 		})
+
 		while (this.children.length > state.length) this.lastElementChild.remove();
 	}
       
   connectedCallback() {
 		this.#render();
-		subscribe({ prop : "*.*", callback : this.#render });
+		subscribe("*.*", this.#render);
 		addEventListener("hashchange", this.#render);
   }
   
   disconnectedCallback() {
-    unsubscribe({ prop : "*.*", callback : this.#render });
+    unsubscribe("*.*", this.#render);
 		removeEventListener("hashchange", this.#render);
   }
 }

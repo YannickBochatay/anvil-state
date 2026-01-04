@@ -13,11 +13,11 @@ class AnvilCount extends HTMLSpanElement {
 	
 	connectedCallback() {
 	  this.#update();
-	  subscribe({ prop : "*.done", callback : this.#update });
+	  subscribe("*.done", this.#update);
 	}
 	
 	disconnectedCallback() {
-	  unsubscribe({ prop : "*.done", callback : this.#update });
+	  unsubscribe("*.done", this.#update);
 	}
 }
 

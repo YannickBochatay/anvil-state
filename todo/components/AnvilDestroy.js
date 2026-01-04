@@ -3,7 +3,7 @@ import { state } from "../AnvilState.js";
 class AnvilDestroy extends HTMLButtonElement {
 	  	
   handleEvent() {
-    state.splice(this.parentNode.parentNode.index, 1);
+    state.splice(this.getAttribute("index"), 1);
   }
     
   connectedCallback() {
