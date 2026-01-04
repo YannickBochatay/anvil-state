@@ -1,13 +1,12 @@
-import { tasks, onStateChange, offStateChange } from "../state.js";
+import { state, tasks, onStateChange, offStateChange } from "../state.js";
 
 class TodoUl extends HTMLUListElement {
 	
   #isHidden(item) {
-		return location.hash === "#/active" && item.done || location.hash === "#/completed" && !item.done;
+		return state.filter === "active" && item.done || state.filter === "completed" && !item.done;
   }
     
 	#render = () => {
-
 		tasks.forEach((task, index) => {
 			let li = this.children[index] ?? document.createElement("li", { is : "todo-li" });
 			
@@ -26,12 +25,10 @@ class TodoUl extends HTMLUListElement {
   connectedCallback() {
 		this.#render();
 		onStateChange(this.#render);
-		addEventListener("hashchange", this.#render);
   }
   
   disconnectedCallback() {
     offStateChange(this.#render);
-		removeEventListener("hashchange", this.#render);
   }
 }
 

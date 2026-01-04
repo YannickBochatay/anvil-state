@@ -1,6 +1,19 @@
 import { tasks } from "../state.js";
 
+let template = document.createElement("template");
+template.innerHTML = `
+	<form>
+		<input id="toggle-all" class="toggle-all" type="checkbox">
+		<label for="toggle-all">Mark all as complete</label>
+	</form>
+`
+
 class TodoToggleAll extends HTMLElement {
+
+	constructor() {
+		super();
+		this.append(template.content.cloneNode(true));
+	}
 	
 	#toggleAll = () => {
 		let allDone = tasks.every(task => task.done);
@@ -9,14 +22,6 @@ class TodoToggleAll extends HTMLElement {
 	}
 
 	connectedCallback() {
-		
-		let form = document.createElement("form");
-		form.innerHTML = `
-		  <input id="toggle-all" class="toggle-all" type="checkbox">
-		  <label for="toggle-all">Mark all as complete</label>
-		`
-		this.append(form);
-		
 		let input = this.querySelector("#toggle-all");
 		input.addEventListener("change", this.#toggleAll);	
 	}

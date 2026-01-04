@@ -1,6 +1,11 @@
 import { tasks } from "../state.js";
 
 class TodoClear extends HTMLButtonElement {
+
+	constructor() {
+		super();
+		this.textContent = "Clear completed";
+	}
 	
 	handleEvent() {
 		let doneIndex;
@@ -11,7 +16,6 @@ class TodoClear extends HTMLButtonElement {
 	}
 
 	connectedCallback() {
-		this.textContent = "Clear completed";
 		this.addEventListener("click", this);
 	}
 }

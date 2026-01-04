@@ -26,4 +26,9 @@ export function offStateChange(callback) {
 	if (index !== -1) listeners.splice(index,1);
 }
 
-export const tasks = createState([]);
+export const state = createState({
+  tasks : [],
+  filter : null
+});
+
+export const { tasks } = state;

@@ -1,4 +1,21 @@
+import { state } from "../state.js"
+
+let template = document.createElement("template");
+		
+template.innerHTML = `
+	<ul class="filters">
+		<li><a href="#/">All</a></li>
+		<li><a href="#/active">Active</a></li>
+		<li><a href="#/completed">Completed</a></li>
+	</ul>
+`;
+
 class TodoFilters extends HTMLElement {
+
+	constructor() {
+		super();		
+		this.append(template.content.cloneNode(true));
+	}
 	
 	#update = () => {
 		this.querySelectorAll("a").forEach(node => node.classList.remove("selected"));
@@ -8,32 +25,17 @@ class TodoFilters extends HTMLElement {
 		} else {
 			this.querySelector(`a[href="#/"]`).classList.add("selected");
 		}
+
+		state.filter = location.hash.split("/")[1];
 	}
 	
 	connectedCallback() {
-		let template = document.createElement("template");
-		
-		template.innerHTML = `
-			<ul class="filters">
-				<li>
-					<a href="#/">All</a>
-				</li>
-				<li>
-					<a href="#/active">Active</a>
-				</li>
-				<li>
-					<a href="#/completed">Completed</a>
-				</li>
-			</ul>
-		`;
-		
-		this.append(template.content.cloneNode(true));
 		this.#update();
-		window.addEventListener("hashchange", this.#update);
+		addEventListener("hashchange", this.#update);
 	}
 	
 	disconnectedCallback() {
-		window.removeEventListener("hashchange", this.#update);
+		removeEventListener("hashchange", this.#update);
 	}
 }
 

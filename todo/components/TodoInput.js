@@ -1,8 +1,27 @@
 import { tasks } from "../state.js";
 
+let template = document.createElement("template");
+template.innerHTML = `
+	<form>
+		<input
+			class="new-todo"
+			type="text"
+			id="new-task"
+			placeholder="What needs to be done?"
+			autofocus
+		/>
+	</form>
+`
+
 class TodoInput extends HTMLElement {
 	
   #form
+
+	constructor() {
+		super();
+		this.append(template.content.cloneNode(true));
+		this.#form = this.querySelector("form");
+	}
   
   #submit = e => {
     e.preventDefault();
@@ -12,18 +31,6 @@ class TodoInput extends HTMLElement {
   }
   
   connectedCallback() {
-		let form = document.createElement("form");
-		form.innerHTML = `
-			<input
-			class="new-todo"
-			type="text"
-			id="new-task"
-			placeholder="What needs to be done?"
-			autofocus
-			/>
-		`
-		this.append(form);
-		this.#form = form;
 		this.#form.addEventListener("submit", this.#submit); 
 	}
 }
