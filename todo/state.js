@@ -27,9 +27,9 @@ export function offStateChange(callback) {
   if (index !== -1) listeners.splice(index,1);
 }
 
-let initialState = localStorage.getItem(STORAGE_NAME);
+let storedState = localStorage.getItem(STORAGE_NAME);
 
-initialState = JSON.parse(initialState) ?? { tasks : [], filter : null };
+const initialState = storedState ? JSON.parse(storedState) : { tasks : [], filter : null };
 
 export const state = createState(initialState);
 
