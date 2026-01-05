@@ -1,10 +1,10 @@
-import { tasks, onStateChange, offStateChange } from "../state.js";
+import { tasks, onStateChange, offStateChange } from '../state.js';
 
 class TodoClear extends HTMLButtonElement {
 	
 	constructor() {
 		super();
-		this.textContent = "Clear completed";
+		this.textContent = 'Clear completed';
 	}
 	
 	handleEvent() {
@@ -17,16 +17,16 @@ class TodoClear extends HTMLButtonElement {
 	
 	#update() {
 		let show = tasks.some(task => task.completed);
-		this.style.display = show ? "inline" : "none";
+		this.style.display = show ? 'inline' : 'none';
 	}
 	
 	#handleStateChange = prop => {
-		if (prop === "completed") this.#update();
+		if (prop === 'completed') this.#update();
 	}
 	
 	connectedCallback() {
 		this.#update();
-		this.addEventListener("click", this);
+		this.addEventListener('click', this);
 		onStateChange(this.#handleStateChange);
 	}
 	
@@ -35,4 +35,4 @@ class TodoClear extends HTMLButtonElement {
 	}
 }
 
-customElements.define("todo-clear", TodoClear, { extends : "button" });
+customElements.define('todo-clear', TodoClear, { extends : 'button' });

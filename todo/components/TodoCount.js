@@ -1,4 +1,4 @@
-import { tasks, onStateChange, offStateChange } from "../state.js";
+import { tasks, onStateChange, offStateChange } from '../state.js';
 
 class TodoCount extends HTMLSpanElement {
 	
@@ -8,11 +8,11 @@ class TodoCount extends HTMLSpanElement {
 	
 	#update() {
 		let count = this.#count;
-		this.innerHTML = `<strong>${count}</strong> item${count === 1 ? "" : "s"} left`;
+		this.innerHTML = `<strong>${count}</strong> item${count === 1 ? '' : 's'} left`;
 	}
 	
 	#handleStateChange = prop => {
-		if (prop === "completed" || prop === "length") this.#update();
+		if (prop === 'completed' || prop === 'length') this.#update();
 	}
 	
 	connectedCallback() {
@@ -25,4 +25,4 @@ class TodoCount extends HTMLSpanElement {
 	}
 }
 
-customElements.define("todo-count", TodoCount, { extends : "span" });
+customElements.define('todo-count', TodoCount, { extends : 'span' });

@@ -1,10 +1,10 @@
-import { tasks } from "../state.js";
+import { tasks } from '../state.js';
 
 class TodoToggle extends HTMLInputElement {
   
   constructor() {
     super();
-    this.setAttribute("type", "checkbox");
+    this.setAttribute('type', 'checkbox');
   }
   
   handleEvent() {
@@ -13,12 +13,12 @@ class TodoToggle extends HTMLInputElement {
   }
   
   get index() {
-    return this.getAttribute("index");
+    return this.getAttribute('index');
   }
   
   connectedCallback() {
-    this.addEventListener("click", this);
+    this.addEventListener('click', this);
   }
 }
 
-customElements.define("todo-toggle", TodoToggle, { extends : "input" });
+customElements.define('todo-toggle', TodoToggle, { extends : 'input' });

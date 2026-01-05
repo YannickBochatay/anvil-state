@@ -1,13 +1,13 @@
-import { tasks, onStateChange, offStateChange } from "../state.js"
+import { tasks, onStateChange, offStateChange } from '../state.js'
 
 class TodoOnly extends HTMLElement {
   
   #update = () => {
-    this.style.display = tasks.length ? "block" : "none";
+    this.style.display = tasks.length ? 'block' : 'none';
   }
   
   #handleStateChange = prop => {
-    if (prop === "length") this.#update();
+    if (prop === 'length') this.#update();
   }
   
   connectedCallback() {
@@ -20,5 +20,5 @@ class TodoOnly extends HTMLElement {
   }
 }
 
-customElements.define("todo-only", TodoOnly);
+customElements.define('todo-only', TodoOnly);
 

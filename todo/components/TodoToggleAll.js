@@ -1,10 +1,10 @@
-import { tasks } from "../state.js";
+import { tasks } from '../state.js';
 
-let template = document.createElement("template");
+let template = document.createElement('template');
 template.innerHTML = `
 	<form>
-		<input id="toggle-all" class="toggle-all" type="checkbox">
-		<label for="toggle-all">Mark all as complete</label>
+		<input id='toggle-all' class='toggle-all' type='checkbox'>
+		<label for='toggle-all'>Mark all as complete</label>
 	</form>
 `
 
@@ -22,9 +22,9 @@ class TodoToggleAll extends HTMLElement {
 	}
 	
 	connectedCallback() {
-		let input = this.querySelector("#toggle-all");
-		input.addEventListener("change", this.#toggleAll);	
+		let input = this.querySelector('#toggle-all');
+		input.addEventListener('change', this.#toggleAll);	
 	}
 }
 
-customElements.define("todo-toggle-all", TodoToggleAll);
+customElements.define('todo-toggle-all', TodoToggleAll);
