@@ -43,8 +43,12 @@ class TodoEdit extends HTMLElement {
 	
 	validate = e => {
 		e.preventDefault();
-		let event = new CustomEvent('validate', { detail : this.#input.value });
-		this.dispatchEvent(event);
+		let value = this.#input.value.trim();
+
+		if (value) {
+			let event = new CustomEvent('validate', { detail : { value } });
+			this.dispatchEvent(event);
+		}
 	}
 	
 	cancel = e => {

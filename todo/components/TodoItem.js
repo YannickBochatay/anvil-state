@@ -60,7 +60,7 @@ class TodoItem extends HTMLLIElement {
 	
 	#validateTask = e => {
 		this.classList.remove('editing');
-		tasks[this.index].label = e.detail;
+		tasks[this.index].label = e.detail.value;
 	}
 	
 	connectedCallback() {
