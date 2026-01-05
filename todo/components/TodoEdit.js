@@ -23,7 +23,7 @@ class TodoEdit extends HTMLElement {
 	}
 	
 	set disabled(bool) {
-		if (Boolean(bool)) return this.setAttribute("disabled", "");
+		if (bool) this.setAttribute("disabled", "");
 		else this.removeAttribute("disabled");
 	}
 	

@@ -39,7 +39,7 @@ class TodoItem extends HTMLLIElement {
 	
 	set label(label) {
 		if (typeof label !== "string") throw new TypeError("label must be a string");
-		return this.setAttribute("label", label);
+		this.setAttribute("label", label);
 	}
 	
 	get completed() {
@@ -47,7 +47,7 @@ class TodoItem extends HTMLLIElement {
 	}
 	
 	set completed(bool) {
-		if (Boolean(bool)) return this.setAttribute("completed", "");
+		if (bool) this.setAttribute("completed", "");
 		else this.removeAttribute("completed");		
 	}
 	

@@ -21,7 +21,7 @@ export function onStateChange(callback) {
 }
 
 export function offStateChange(callback) {
-  let index = listeners.findIndex(listener => listener === callback);
+  let index = listeners.indexOf(callback);
   if (index !== -1) listeners.splice(index,1);
 }
 
