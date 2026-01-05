@@ -1,5 +1,7 @@
 let listeners = [];
 
+const STORAGE_NAME = 'todos-web-components-proxy';
+
 function createState(state) {
   return new Proxy(state, {
     set : (state, prop, value) => {
@@ -25,9 +27,12 @@ export function offStateChange(callback) {
   if (index !== -1) listeners.splice(index,1);
 }
 
-export const state = createState({
-  tasks : [],
-  filter : null
-});
+let initialState = localStorage.getItem(STORAGE_NAME);
+
+initialState = JSON.parse(initialState) ?? { tasks : [], filter : null };
+
+export const state = createState(initialState);
+
+onStateChange(() => localStorage.setItem(STORAGE_NAME, JSON.stringify(state)));
 
 export const { tasks } = state;
