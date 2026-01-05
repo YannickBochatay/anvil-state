@@ -10,7 +10,7 @@ class TodoList extends HTMLUListElement {
 		tasks.forEach((task, index) => {
 			let li = this.children[index] ?? document.createElement('li', { is : 'todo-item' });
 			
-			if (li.label !== task.label) li.label = task.label;
+			if (li.title !== task.title) li.title = task.title;
 			if (li.completed !== task.completed) li.completed = task.completed;
 			if (li.index !== index) li.index = index;
 			

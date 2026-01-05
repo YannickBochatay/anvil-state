@@ -25,9 +25,9 @@ class TodoInput extends HTMLElement {
 	
 	#submit = e => {
 		e.preventDefault();
-		let label = this.querySelector('#new-task').value.trim();
-		if (label) {
-			tasks.push({ label, completed : false });
+		let title = this.querySelector('#new-task').value.trim();
+		if (title) {
+			tasks.push({ title, completed : false });
 			this.#form.reset();
 		}
 	}

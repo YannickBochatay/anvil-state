@@ -17,7 +17,7 @@ template.innerHTML = `
 
 class TodoItem extends HTMLLIElement {
 	
-	static observedAttributes = ['index', 'label', 'completed']
+	static observedAttributes = ['index', 'title', 'completed']
 	
 	constructor() {
 		super();
@@ -33,13 +33,13 @@ class TodoItem extends HTMLLIElement {
 		return this.setAttribute('index', index);
 	}
 	
-	get label() {
-		return this.getAttribute('label');
+	get title() {
+		return this.getAttribute('title');
 	}
 	
-	set label(label) {
-		if (typeof label !== 'string') throw new TypeError('label must be a string');
-		this.setAttribute('label', label);
+	set title(title) {
+		if (typeof title !== 'string') throw new TypeError('title must be a string');
+		this.setAttribute('title', title);
 	}
 	
 	get completed() {
@@ -60,7 +60,7 @@ class TodoItem extends HTMLLIElement {
 	
 	#validateTask = e => {
 		this.classList.remove('editing');
-		tasks[this.index].label = e.detail.value;
+		tasks[this.index].title = e.detail.value;
 	}
 	
 	connectedCallback() {
@@ -72,7 +72,7 @@ class TodoItem extends HTMLLIElement {
 	}
 	
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === 'label') {
+		if (name === 'title') {
 			this.querySelector('label').textContent = newValue;
 			this.querySelector('todo-edit').value = newValue;
 		} else if (name === 'index') {
