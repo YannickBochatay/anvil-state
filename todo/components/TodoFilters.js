@@ -1,6 +1,6 @@
 import { state } from '../state.js'
 
-let template = document.createElement('template');
+const template = document.createElement('template');
 
 template.innerHTML = `
 	<ul class='filters'>

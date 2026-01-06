@@ -1,6 +1,6 @@
 import { tasks } from '../state.js';
 
-let template = document.createElement('template');
+const template = document.createElement('template');
 template.innerHTML = `
 	<form>
 		<input
@@ -11,7 +11,7 @@ template.innerHTML = `
 			autofocus
 		/>
 	</form>
-`
+`;
 
 class TodoInput extends HTMLElement {
 	
@@ -25,7 +25,7 @@ class TodoInput extends HTMLElement {
 	
 	#submit = e => {
 		e.preventDefault();
-		let title = this.querySelector('#new-task').value.trim();
+		const title = this.querySelector('#new-task').value.trim();
 		if (title) {
 			tasks.push({ title, completed : false });
 			this.#form.reset();

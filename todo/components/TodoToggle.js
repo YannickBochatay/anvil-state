@@ -8,7 +8,7 @@ class TodoToggle extends HTMLInputElement {
   }
   
   handleEvent() {
-    let { index } = this;
+    const { index } = this;
     tasks[index].completed = !tasks[index].completed;
   }
   

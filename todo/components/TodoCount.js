@@ -7,7 +7,7 @@ class TodoCount extends HTMLSpanElement {
 	}
 	
 	#update() {
-		let count = this.#count;
+		const count = this.#count;
 		this.innerHTML = `<strong>${count}</strong> item${count === 1 ? '' : 's'} left`;
 	}
 	

@@ -16,7 +16,7 @@ class TodoClear extends HTMLButtonElement {
 	}
 	
 	#update() {
-		let show = tasks.some(task => task.completed);
+		const show = tasks.some(task => task.completed);
 		this.style.display = show ? 'inline' : 'none';
 	}
 	

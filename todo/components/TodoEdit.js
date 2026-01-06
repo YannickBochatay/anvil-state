@@ -1,4 +1,4 @@
-let template = document.createElement('template');
+const template = document.createElement('template');
 
 template.innerHTML = `
 	<form>
@@ -36,17 +36,17 @@ class TodoEdit extends HTMLElement {
 	}
 	
 	edit = () => {
-		let input = this.#input;
+		const input = this.#input;
 		input.focus();
 		input.selectionStart = input.selectionEnd = input.value.length;
 	}
 	
 	validate = e => {
 		e.preventDefault();
-		let value = this.#input.value.trim();
+		const value = this.#input.value.trim();
 
 		if (value) {
-			let event = new CustomEvent('validate', { detail : { value } });
+			const event = new CustomEvent('validate', { detail : { value } });
 			this.dispatchEvent(event);
 		}
 	}

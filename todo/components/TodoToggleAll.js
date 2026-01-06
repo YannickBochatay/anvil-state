@@ -1,12 +1,12 @@
 import { tasks } from '../state.js';
 
-let template = document.createElement('template');
+const template = document.createElement('template');
 template.innerHTML = `
 	<form>
 		<input id='toggle-all' class='toggle-all' type='checkbox'>
 		<label for='toggle-all'>Mark all as complete</label>
 	</form>
-`
+`;
 
 class TodoToggleAll extends HTMLElement {
 	
@@ -16,13 +16,13 @@ class TodoToggleAll extends HTMLElement {
 	}
 	
 	#toggleAll = () => {
-		let allDone = tasks.every(task => task.completed);
+		const allDone = tasks.every(task => task.completed);
 		if (allDone) tasks.forEach(task => { if (task.completed) task.completed = false; });
 		else tasks.forEach(task => { if (!task.completed) task.completed = true; });
 	}
 	
 	connectedCallback() {
-		let input = this.querySelector('#toggle-all');
+		const input = this.querySelector('#toggle-all');
 		input.addEventListener('change', this.#toggleAll);	
 	}
 }

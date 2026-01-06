@@ -1,6 +1,6 @@
 import { tasks } from '../state.js';
 
-let template = document.createElement('template');
+const template = document.createElement('template');
 		
 template.innerHTML = `
 	<div class='view'>
@@ -64,7 +64,7 @@ class TodoItem extends HTMLLIElement {
 	}
 	
 	connectedCallback() {
-		let editNode = this.querySelector('todo-edit');
+		const editNode = this.querySelector('todo-edit');
 		editNode.addEventListener('validate', this.#validateTask);
 		editNode.addEventListener('cancel', this.#cancelEditTask);
 		
@@ -75,11 +75,14 @@ class TodoItem extends HTMLLIElement {
 		if (name === 'title') {
 			this.querySelector('label').textContent = newValue;
 			this.querySelector('todo-edit').value = newValue;
+
 		} else if (name === 'index') {
 			this.querySelectorAll('[index]').forEach(node => node.setAttribute('index', newValue))
+
 		} else if (name === 'completed') {
-			this.classList[newValue == null ? 'remove' : 'add']('completed');
-			this.querySelector('input.toggle').checked = newValue != null;
+			const completed = newValue != null;
+			this.classList[completed ? 'remove' : 'add']('completed');
+			this.querySelector('input.toggle').checked = completed;
 		}
 	}
 	
