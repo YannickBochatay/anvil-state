@@ -1,37 +1,12 @@
-let listeners = [];
+import { createState } from "./createState.js";
 
 const STORAGE_NAME = 'todos-web-components-proxy';
-
-function createState(state) {
-  return new Proxy(state, {
-    set : (state, prop, value) => {
-      state[prop] = value;
-      listeners.forEach(callback => callback(prop, value));
-      return true;
-    },
-    get : (state, prop) => {
-      if (prop === "_isProxy") return true;
-      else if (state[prop]?._isProxy) return state[prop];
-      else if (state[prop] && typeof state[prop] === "object") return createState(state[prop]);
-      else return state[prop];
-    }
-  });
-}
-
-export function onStateChange(callback) {
-  listeners.push(callback);
-}
-
-export function offStateChange(callback) {
-  let index = listeners.indexOf(callback);
-  if (index !== -1) listeners.splice(index,1);
-}
 
 let storedState = localStorage.getItem(STORAGE_NAME);
 
 const initialState = storedState ? JSON.parse(storedState) : { tasks : [], filter : null };
 
-export const state = createState(initialState);
+export const { state, onStateChange, offStateChange } = createState(initialState);
 
 onStateChange(() => localStorage.setItem(STORAGE_NAME, JSON.stringify(state)));
 
