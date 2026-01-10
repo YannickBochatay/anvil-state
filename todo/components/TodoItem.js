@@ -81,7 +81,7 @@ class TodoItem extends HTMLLIElement {
 
 		} else if (name === 'completed') {
 			const completed = newValue != null;
-			this.classList[completed ? 'remove' : 'add']('completed');
+			this.classList[completed ? 'add' : 'remove']('completed');
 			this.querySelector('input.toggle').checked = completed;
 		}
 	}
