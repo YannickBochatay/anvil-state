@@ -91,8 +91,8 @@ export function createState(initialState) {
      * @param {(prop: string, value: any) => void} callback
      */
     offStateChange(callback) {
-      const idx = listeners.indexOf(callback);
-      if (idx !== -1) listeners.splice(idx, 1);
+      const index = listeners.indexOf(callback);
+      if (index !== -1) listeners.splice(index, 1);
     },
   };
 }
