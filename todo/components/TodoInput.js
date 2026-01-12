@@ -15,7 +15,7 @@ template.innerHTML = `
 	</form>
 `;
 
-class TodoInput extends HTMLElement {
+export class TodoInput extends HTMLElement {
 	
 	#form
 	

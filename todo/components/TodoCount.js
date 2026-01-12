@@ -2,7 +2,7 @@
 
 import { tasks, onStateChange, offStateChange } from '../state.js';
 
-class TodoCount extends HTMLSpanElement {
+export class TodoCount extends HTMLSpanElement {
 	
 	get #count() {
 		return tasks.reduce((sum, item) => item.completed ? sum : sum+1, 0);

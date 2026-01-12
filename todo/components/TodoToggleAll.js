@@ -10,7 +10,7 @@ template.innerHTML = `
 	</form>
 `;
 
-class TodoToggleAll extends HTMLElement {
+export class TodoToggleAll extends HTMLElement {
 	
 	constructor() {
 		super();

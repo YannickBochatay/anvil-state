@@ -12,7 +12,7 @@ template.innerHTML = `
 	</ul>
 `;
 
-class TodoFilters extends HTMLElement {
+export class TodoFilters extends HTMLElement {
 	
 	constructor() {
 		super();		

@@ -2,7 +2,7 @@
 
 import { tasks } from '../state.js';
 
-class TodoToggle extends HTMLInputElement {
+export class TodoToggle extends HTMLInputElement {
   
   constructor() {
     super();

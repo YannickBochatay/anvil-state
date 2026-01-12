@@ -2,7 +2,7 @@
 
 import { tasks, onStateChange, offStateChange } from '../state.js';
 
-class TodoClear extends HTMLButtonElement {
+export class TodoClear extends HTMLButtonElement {
 	
 	constructor() {
 		super();

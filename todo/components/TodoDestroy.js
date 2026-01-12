@@ -2,7 +2,7 @@
 
 import { tasks } from '../state.js';
 
-class TodoDestroy extends HTMLButtonElement {
+export class TodoDestroy extends HTMLButtonElement {
   
   handleEvent() {
     if (this.index != null) tasks.splice(this.index, 1);

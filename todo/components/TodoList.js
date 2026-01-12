@@ -2,7 +2,7 @@
 
 import { state, tasks, onStateChange, offStateChange } from '../state.js';
 
-class TodoList extends HTMLUListElement {
+export class TodoList extends HTMLUListElement {
 	
 	/**
 	 * @param {import('../state.js').Task} item 
@@ -14,8 +14,7 @@ class TodoList extends HTMLUListElement {
 	
 	#render = () => {
 		tasks.forEach((task, index) => {
-			/** @type {import("./TodoItem").TodoItem} */
-			const li = this.children[index] ?? document.createElement('li', { is : 'todo-item' });
+			const li = /** @type {import("./TodoItem").TodoItem} */ (this.children[index] ?? document.createElement('li', { is : 'todo-item' }));
 			
 			if (li.label !== task.title) li.label = task.title;
 			if (li.completed !== task.completed) li.completed = task.completed;
