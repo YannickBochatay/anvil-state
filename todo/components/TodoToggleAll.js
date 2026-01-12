@@ -1,3 +1,5 @@
+// @ts-check
+
 import { tasks } from '../state.js';
 
 const template = document.createElement('template');
@@ -23,7 +25,7 @@ class TodoToggleAll extends HTMLElement {
 	
 	connectedCallback() {
 		const input = this.querySelector('#toggle-all');
-		input.addEventListener('change', this.#toggleAll);	
+		input?.addEventListener('change', this.#toggleAll);	
 	}
 }
 

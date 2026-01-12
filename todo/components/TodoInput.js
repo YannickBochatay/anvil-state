@@ -1,3 +1,5 @@
+// @ts-check
+
 import { tasks } from '../state.js';
 
 const template = document.createElement('template');
@@ -23,17 +25,23 @@ class TodoInput extends HTMLElement {
 		this.#form = this.querySelector('form');
 	}
 	
+	/**
+	 * 
+	 * @param {Event} e 
+	 */
 	#submit = e => {
 		e.preventDefault();
-		const title = this.querySelector('#new-task').value.trim();
+		/** @type {HTMLInputElement|null} */
+		const input = this.querySelector('#new-task')
+		const title = input?.value.trim();
 		if (title) {
 			tasks.push({ title, completed : false });
-			this.#form.reset();
+			this.#form?.reset();
 		}
 	}
 	
 	connectedCallback() {
-		this.#form.addEventListener('submit', this.#submit); 
+		this.#form?.addEventListener('submit', this.#submit); 
 	}
 }
 

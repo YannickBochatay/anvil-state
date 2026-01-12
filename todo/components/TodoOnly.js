@@ -1,11 +1,17 @@
+// @ts-check
+
 import { tasks, onStateChange, offStateChange } from '../state.js'
 
-class TodoOnly extends HTMLElement {
+export class TodoOnly extends HTMLElement {
   
   #update = () => {
     this.style.display = tasks.length ? 'block' : 'none';
   }
   
+  /**
+   * 
+   * @param {string} prop 
+   */
   #handleStateChange = prop => {
     if (prop === 'length') this.#update();
   }

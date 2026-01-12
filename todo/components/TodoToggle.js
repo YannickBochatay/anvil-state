@@ -1,3 +1,5 @@
+// @ts-check
+
 import { tasks } from '../state.js';
 
 class TodoToggle extends HTMLInputElement {
@@ -9,11 +11,16 @@ class TodoToggle extends HTMLInputElement {
   
   handleEvent() {
     const { index } = this;
-    tasks[index].completed = !tasks[index].completed;
+    if (index != null) {
+      tasks[index].completed = !tasks[index].completed;
+    }
   }
   
+  /**
+   * @return {number|null}
+   */
   get index() {
-    return this.getAttribute('index');
+    return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
   }
   
   connectedCallback() {

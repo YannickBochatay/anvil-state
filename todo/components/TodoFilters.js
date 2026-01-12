@@ -1,3 +1,5 @@
+// @ts-check
+
 import { state } from '../state.js'
 
 const template = document.createElement('template');
@@ -21,9 +23,9 @@ class TodoFilters extends HTMLElement {
 		this.querySelectorAll('a').forEach(node => node.classList.remove('selected'));
 		
 		if (location.hash) {
-			this.querySelector(`a[href='${location.hash}']`).classList.add('selected');
+			this.querySelector(`a[href='${location.hash}']`)?.classList.add('selected');
 		} else {
-			this.querySelector(`a[href='#/']`).classList.add('selected');
+			this.querySelector(`a[href='#/']`)?.classList.add('selected');
 		}
 		
 		state.filter = location.hash.split('/')[1];

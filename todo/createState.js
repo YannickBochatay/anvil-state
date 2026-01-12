@@ -1,8 +1,12 @@
 // @ts-check
 
 /**
- * @typedef {Object} ProxyState
- * @property {object} state                     – The proxied state object.
+ * @typedef {any} Proxy
+ */
+
+/**
+ * @typedef {object} ProxyState
+ * @property {Proxy} state                   – The proxied state object.
  * @property {(callback: (prop: string, value: any) => void) => void} onStateChange
  *                                            – Registers a listener that runs when the state changes.
  * @property {(callback: (prop: string, value: any) => void) => void} offStateChange
@@ -24,7 +28,7 @@ export function createState(initialState) {
    * Recursively creates a proxy around an object.
    *
    * @param {object} target – The object to proxy.
-   * @returns {object}
+   * @returns {Proxy}
    */
   function createProxy(target) {
     return new Proxy(target, {
@@ -73,7 +77,7 @@ export function createState(initialState) {
   }
 
   return {
-    /** @type {object} */
+    /** @type {Proxy} */
     state: createProxy(initialState),
 
     /**

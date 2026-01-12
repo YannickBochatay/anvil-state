@@ -1,9 +1,15 @@
+// @ts-check
+
 import { tasks } from '../state.js';
 
 class TodoDestroy extends HTMLButtonElement {
   
   handleEvent() {
-    tasks.splice(this.getAttribute('index'), 1);
+    if (this.index != null) tasks.splice(this.index, 1);
+  }
+
+  get index() {
+    return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
   }
   
   connectedCallback() {

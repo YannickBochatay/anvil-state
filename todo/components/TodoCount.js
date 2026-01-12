@@ -1,3 +1,5 @@
+// @ts-check
+
 import { tasks, onStateChange, offStateChange } from '../state.js';
 
 class TodoCount extends HTMLSpanElement {
@@ -11,6 +13,9 @@ class TodoCount extends HTMLSpanElement {
 		this.innerHTML = `<strong>${count}</strong> item${count === 1 ? '' : 's'} left`;
 	}
 	
+	/**
+	 * @param {string} prop 
+	 */
 	#handleStateChange = prop => {
 		if (prop === 'completed' || prop === 'length') this.#update();
 	}

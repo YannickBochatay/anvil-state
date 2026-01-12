@@ -1,3 +1,5 @@
+// @ts-check
+
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -6,7 +8,7 @@ template.innerHTML = `
 	</form>
 `;
 
-class TodoEdit extends HTMLElement {
+export class TodoEdit extends HTMLElement {
 	
 	static observedAttributes = ['disabled', 'value']
 	
@@ -15,6 +17,7 @@ class TodoEdit extends HTMLElement {
 	constructor() {
 		super();
 		this.append(template.content.cloneNode(true));
+		/** @type {HTMLInputElement} */
 		this.#input = this.querySelector('input');
 	}
 	
@@ -27,23 +30,33 @@ class TodoEdit extends HTMLElement {
 		else this.removeAttribute('disabled');
 	}
 	
+	/**
+	 * @return {string|null}
+	 */
 	get value() {
 		return this.getAttribute('value');
 	}
 	
+	/**
+	 * @param {string} value
+	 */
 	set value(value) {
 		this.setAttribute('value', value);
 	}
 	
 	edit = () => {
 		const input = this.#input;
+		if (!input) return;
 		input.focus();
 		input.selectionStart = input.selectionEnd = input.value.length;
 	}
 	
+	/**
+	 * @param {Event} e 
+	 */
 	validate = e => {
 		e.preventDefault();
-		const value = this.#input.value.trim();
+		const value = this.#input?.value.trim();
 
 		if (value) {
 			const event = new CustomEvent('validate', { detail : { value } });
@@ -51,20 +64,25 @@ class TodoEdit extends HTMLElement {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param {Event} e 
+	 */
 	cancel = e => {
 		this.disabled = true;
 		this.dispatchEvent(new CustomEvent('cancel'));
 	}
 	
 	#update() {
-		this.#input.value = this.value;
+		if (!this.#input) return;
+		this.#input.value = this.value ?? "";
 		this.style.display = this.disabled ? 'none' : 'block';
 		if (!this.disabled) this.edit();
 	}
 	
 	connectedCallback() {
-		this.#input.addEventListener('blur', this.cancel);
-		this.querySelector('form').addEventListener('submit', this.validate);
+		this.#input?.addEventListener('blur', this.cancel);
+		this.querySelector('form')?.addEventListener('submit', this.validate);
 		this.#update();
 	}
 	
