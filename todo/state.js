@@ -12,6 +12,7 @@ import { createState } from "./createState.js";
  * @typedef {object} State
  * @property {Task[]} tasks
  * @property {string} filter
+ * @property {number|null} editing - task being edited
  */
 
 const STORAGE_NAME = 'todos-web-components-proxy';
@@ -19,7 +20,7 @@ const STORAGE_NAME = 'todos-web-components-proxy';
 let storedState = localStorage.getItem(STORAGE_NAME);
 
 /** @type {State} */
-const initialState = storedState ? JSON.parse(storedState) : { tasks : [], filter : null };
+const initialState = storedState ? JSON.parse(storedState) : { tasks : [], filter : null, editing : null };
 
 const proxiedState = createState(initialState);
 

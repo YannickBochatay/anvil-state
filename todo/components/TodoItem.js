@@ -1,45 +1,24 @@
 // @ts-check
 
-import { tasks } from '../state.js';
+import { state } from '../state.js';
 
-/**
- * @typedef {import('../state.js').Task} Task
- */
-
-/**
- * @type {HTMLTemplateElement}
- */
 const template = document.createElement('template');
 
 template.innerHTML = `
-<div class='view'>
-  <input
-    class='toggle'
-    is='todo-toggle'
-    index='-1'
-  >
-  <label></label>
-  <button class='destroy' is='todo-destroy' index='-1'></button>
-</div>
-
-<todo-edit disabled value=''></todo-edit>
+  <div class="view">
+    <input class="toggle" is="todo-toggle" index="-1">
+    <label></label>
+    <button class="destroy" is="todo-destroy" index="-1"></button>
+  </div>
+  <todo-edit index="-1" disabled></todo-edit>
 `;
 
-/**
- * Élément custom représentant une tâche « todo ».
- *
- * @extends {HTMLLIElement}
- */
 export class TodoItem extends HTMLLIElement {
-  /** @type {string[]} */
-  static observedAttributes = ['index', 'label', 'completed'];
 
-  /**
-   * Crée une instance du composant.
-   */
+  static observedAttributes = ['index', 'label', 'completed', 'editing'];
+
   constructor() {
     super();
-    // Clone le contenu du template dans le <li> personnalisé.
     this.append(template.content.cloneNode(true));
   }
 
@@ -59,9 +38,8 @@ export class TodoItem extends HTMLLIElement {
       this.removeAttribute('index');
       return;
     }
-    if (Number.isNaN(index)) {
-      throw new Error(`${index} is not a valid index`);
-    }
+    if (Number.isNaN(index)) throw new Error(`${index} is not a valid index`);
+
     this.setAttribute('index', String(index));
   }
 
@@ -74,13 +52,11 @@ export class TodoItem extends HTMLLIElement {
   }
 
   /**
-   * @param {string} txt
+   * @param {string} str
    */
-  set label(txt) {
-    if (typeof txt !== 'string') {
-      throw new TypeError('label must be a string');
-    }
-    this.setAttribute('label', txt);
+  set label(str) {
+    if (typeof str !== 'string') throw new TypeError('label must be a string');
+    this.setAttribute('label', str);
   }
 
   /**
@@ -92,57 +68,25 @@ export class TodoItem extends HTMLLIElement {
   }
 
   /**
-   * @param {boolean} flag
+   * @param {boolean} bool
    */
-  set completed(flag) {
-    if (flag) {
-      this.setAttribute('completed', '');
-    } else {
-      this.removeAttribute('completed');
-    }
+  set completed(bool) {
+    if (bool) this.setAttribute('completed', '');
+    else this.removeAttribute('completed');
   }
 
-  /**
-   * Passe le composant en mode édition.
-   */
-  #editTask = () => {
-    this.classList.add('editing');
-    /** @type {?HTMLElement & { disabled?: boolean }} */
-    const editNode = this.querySelector('todo-edit');
-    if (editNode) editNode.disabled = false;
-  };
+  get editing() {
+    return this.hasAttribute('editing');
+  }
 
-  /**
-   * Annule le mode édition.
-   */
-  #cancelEditTask = () => this.classList.remove('editing');
-
-  /**
-   * Valide la modification d’une tâche.
-   *
-   * @param {CustomEventInit} e
-   */
-  #validateTask = e => {
-    this.classList.remove('editing');
-
-    const { index } = this;
-    if (index != null && tasks[index]) {
-      tasks[index].title = e.detail.value;
-    }
-  };
+  set editing(bool) {
+    if (bool) this.setAttribute('editing', '');
+    else this.removeAttribute('editing');
+  }
 
   connectedCallback() {
-    /** @type {?import('./TodoEdit.js').TodoEdit} */
-    const editNode = this.querySelector('todo-edit');
-    if (editNode) {
-      editNode.addEventListener('validate', this.#validateTask);
-      editNode.addEventListener('cancel', this.#cancelEditTask);
-    }
-
     const label = this.querySelector('label');
-    if (label) {
-      label.addEventListener('dblclick', this.#editTask);
-    }
+    if (label) label.addEventListener('dblclick', () => state.editing = this.index);
   }
 
   /**
@@ -175,11 +119,17 @@ export class TodoItem extends HTMLLIElement {
         if (input) input.checked = completed;
         break;
       }
+      case 'editing': {
+        const editing = newValue != null;
+        /** @type {import('./TodoEdit').TodoEdit|null} */
+        const editNode = this.querySelector('todo-edit');
+        if (editNode) editNode.disabled = !editing;
+
+        if (editing) this.classList.add('editing');
+        else this.classList.remove('editing');
+      }
     }
   }
 }
 
-/**
- * Enregistrement du custom element « todo-item » qui étend `<li>`.
- */
 customElements.define('todo-item', TodoItem, { extends: 'li' });

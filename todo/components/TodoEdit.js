@@ -1,5 +1,7 @@
 // @ts-check
 
+import { state } from "../state.js";
+
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -10,7 +12,7 @@ template.innerHTML = `
 
 export class TodoEdit extends HTMLElement {
 	
-	static observedAttributes = ['disabled', 'value']
+	static observedAttributes = ['disabled']
 	
 	#input
 	
@@ -20,33 +22,24 @@ export class TodoEdit extends HTMLElement {
 		/** @type {HTMLInputElement} */
 		this.#input = this.querySelector('input');
 	}
-	
+
+	get index() {
+    return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
+  }
+
 	get disabled() {
 		return this.hasAttribute('disabled');
 	}
-	
+
 	set disabled(bool) {
 		if (bool) this.setAttribute('disabled', '');
 		else this.removeAttribute('disabled');
 	}
-	
-	/**
-	 * @return {string|null}
-	 */
-	get value() {
-		return this.getAttribute('value');
-	}
-	
-	/**
-	 * @param {string} value
-	 */
-	set value(value) {
-		this.setAttribute('value', value);
-	}
-	
+			
 	edit = () => {
 		const input = this.#input;
-		if (!input) return;
+		if (!input || this.index == null) return;
+		input.value = state.tasks[this.index].title;
 		input.focus();
 		input.selectionStart = input.selectionEnd = input.value.length;
 	}
@@ -58,26 +51,22 @@ export class TodoEdit extends HTMLElement {
 		e.preventDefault();
 		const value = this.#input?.value.trim();
 
-		if (value) {
-			const event = new CustomEvent('validate', { detail : { value } });
-			this.dispatchEvent(event);
+		if (value && this.index != null) {
+			state.tasks[this.index].title = value;
+			state.editing = null;
 		}
 	}
 	
-	/**
-	 * 
-	 * @param {Event} e 
-	 */
-	cancel = e => {
-		this.disabled = true;
-		this.dispatchEvent(new CustomEvent('cancel'));
-	}
+	cancel = () => state.editing = null;
 	
 	#update() {
 		if (!this.#input) return;
-		this.#input.value = this.value ?? "";
-		this.style.display = this.disabled ? 'none' : 'block';
-		if (!this.disabled) this.edit();
+
+		if (this.disabled) this.style.display = 'none';
+		else {
+			this.style.display = 'block';
+			this.edit();
+		}
 	}
 	
 	connectedCallback() {

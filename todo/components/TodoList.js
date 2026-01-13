@@ -21,6 +21,9 @@ export class TodoList extends HTMLUListElement {
 			if (li.index !== index) li.index = index;
 			
 			li.style.display = this.#isHidden(task) ? 'none' : 'block';
+
+			const isEditing = (state.editing === index)
+			if (li.editing != isEditing) li.editing = isEditing;
 			
 			if (!li.parentNode) this.append(li);
 		})
