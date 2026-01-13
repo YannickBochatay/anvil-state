@@ -35,7 +35,7 @@ export class TodoItem extends HTMLLIElement {
       this.removeAttribute('index');
       return;
     }
-    if (Number.isNaN(index)) throw new Error(`${index} is not a valid index`);
+    if (isNaN(index)) throw new Error(`${index} is not a valid index`);
 
     this.setAttribute('index', String(index));
   }
@@ -90,8 +90,8 @@ export class TodoItem extends HTMLLIElement {
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'label': {
-        const lbl = this.querySelector('label');
-        if (lbl) lbl.textContent = newValue ?? '';
+        const label = this.querySelector('label');
+        if (label) label.textContent = newValue ?? '';
         const edit = this.querySelector('todo-edit');
         if (edit) edit.setAttribute('value', newValue ?? '');
         break;
@@ -113,9 +113,8 @@ export class TodoItem extends HTMLLIElement {
       case 'editing': {
         const editing = newValue != null;
 
-        if (editing) this.classList.add('editing');
-        else this.classList.remove('editing');
-
+        this.classList[editing ? 'add' : 'remove']('editing');
+        
         /** @type {import('./TodoEdit').TodoEdit|null} */
         const editNode = this.querySelector('todo-edit');
         if (editNode) editNode.disabled = !editing;
