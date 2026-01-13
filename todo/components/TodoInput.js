@@ -2,33 +2,27 @@
 
 import { tasks } from '../state.js';
 
-const template = document.createElement('template');
-template.innerHTML = `
-	<form>
-		<input
-			class='new-todo'
-			type='text'
-			id='new-task'
-			placeholder='What needs to be done?'
-			autofocus
-		/>
-	</form>
-`;
-
 export class TodoInput extends HTMLElement {
 	
 	#form
 	
 	constructor() {
 		super();
-		this.append(template.content.cloneNode(true));
+		this.innerHTML = `
+			<form>
+				<input
+					class="new-todo"
+					type="text"
+					id="new-task"
+					placeholder="What needs to be done?"
+					autofocus
+				/>
+			</form>
+		`;
 		this.#form = this.querySelector('form');
 	}
 	
-	/**
-	 * 
-	 * @param {Event} e 
-	 */
+	/** @param {Event} e */
 	#submit = e => {
 		e.preventDefault();
 		/** @type {HTMLInputElement|null} */

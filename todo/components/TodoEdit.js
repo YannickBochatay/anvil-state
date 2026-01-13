@@ -1,25 +1,24 @@
 // @ts-check
-
 import { state } from "../state.js";
 
 const template = document.createElement('template');
 
 template.innerHTML = `
 	<form>
-		<input class='edit'>
+		<input class="edit">
 	</form>
 `;
 
 export class TodoEdit extends HTMLElement {
 	
 	static observedAttributes = ['disabled']
-	
+
+	/** @type {HTMLInputElement|null} */
 	#input
 	
 	constructor() {
 		super();
 		this.append(template.content.cloneNode(true));
-		/** @type {HTMLInputElement} */
 		this.#input = this.querySelector('input');
 	}
 
@@ -36,7 +35,7 @@ export class TodoEdit extends HTMLElement {
 		else this.removeAttribute('disabled');
 	}
 			
-	edit = () => {
+	edit() {
 		const input = this.#input;
 		if (!input || this.index == null) return;
 		input.value = state.tasks[this.index].title;
@@ -44,9 +43,7 @@ export class TodoEdit extends HTMLElement {
 		input.selectionStart = input.selectionEnd = input.value.length;
 	}
 	
-	/**
-	 * @param {Event} e 
-	 */
+	/** @param {Event} e */
 	validate = e => {
 		e.preventDefault();
 		const value = this.#input?.value.trim();
@@ -56,8 +53,6 @@ export class TodoEdit extends HTMLElement {
 			state.editing = null;
 		}
 	}
-	
-	cancel = () => state.editing = null;
 	
 	#update() {
 		if (!this.#input) return;
@@ -70,7 +65,7 @@ export class TodoEdit extends HTMLElement {
 	}
 	
 	connectedCallback() {
-		this.#input?.addEventListener('blur', this.cancel);
+		this.#input?.addEventListener('blur', () => state.editing = null);
 		this.querySelector('form')?.addEventListener('submit', this.validate);
 		this.#update();
 	}

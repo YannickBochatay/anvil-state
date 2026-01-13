@@ -1,20 +1,16 @@
 // @ts-check
-
 import { tasks } from '../state.js';
-
-const template = document.createElement('template');
-template.innerHTML = `
-	<form>
-		<input id='toggle-all' class='toggle-all' type='checkbox'>
-		<label for='toggle-all'>Mark all as complete</label>
-	</form>
-`;
 
 export class TodoToggleAll extends HTMLElement {
 	
 	constructor() {
 		super();
-		this.append(template.content.cloneNode(true));
+		this.innerHTML = `
+			<form>
+				<input id="toggle-all" class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+			</form>
+		`;
 	}
 	
 	#toggleAll = () => {

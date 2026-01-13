@@ -1,5 +1,4 @@
 // @ts-check
-
 import { tasks, onStateChange, offStateChange } from '../state.js';
 
 export class TodoClear extends HTMLButtonElement {
@@ -21,9 +20,7 @@ export class TodoClear extends HTMLButtonElement {
 		const show = tasks.some(task => task.completed);
 		this.style.display = show ? 'inline' : 'none';
 	}
-	/**
-	 * @param {string} prop 
-	 */
+	/** @param {string} prop */
 	#handleStateChange = prop => {
 		if (prop === 'completed') this.#update();
 	}

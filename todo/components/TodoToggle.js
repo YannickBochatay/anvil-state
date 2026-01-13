@@ -1,5 +1,4 @@
 // @ts-check
-
 import { tasks } from '../state.js';
 
 export class TodoToggle extends HTMLInputElement {
@@ -16,14 +15,13 @@ export class TodoToggle extends HTMLInputElement {
     }
   }
   
-  /**
-   * @return {number|null}
-   */
+  /** @return {number|null} */
   get index() {
     return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
   }
   
   connectedCallback() {
+    // see https://gomakethings.com/the-handleevent-method-is-the-absolute-best-way-to-handle-events-in-web-components/
     this.addEventListener('click', this);
   }
 }

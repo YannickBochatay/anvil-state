@@ -1,5 +1,4 @@
 // @ts-check
-
 import { tasks } from '../state.js';
 
 export class TodoDestroy extends HTMLButtonElement {

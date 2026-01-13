@@ -1,5 +1,4 @@
 // @ts-check
-
 import { state, tasks, onStateChange, offStateChange } from '../state.js';
 
 export class TodoList extends HTMLUListElement {
@@ -14,7 +13,9 @@ export class TodoList extends HTMLUListElement {
 	
 	#render = () => {
 		tasks.forEach((task, index) => {
-			const li = /** @type {import("./TodoItem").TodoItem} */ (this.children[index] ?? document.createElement('li', { is : 'todo-item' }));
+			const li = /** @type {import("./TodoItem").TodoItem} */ (
+				this.children[index] ?? document.createElement('li', { is : 'todo-item' })
+			);
 			
 			if (li.label !== task.title) li.label = task.title;
 			if (li.completed !== task.completed) li.completed = task.completed;
@@ -22,7 +23,7 @@ export class TodoList extends HTMLUListElement {
 			
 			li.style.display = this.#isHidden(task) ? 'none' : 'block';
 
-			const isEditing = (state.editing === index)
+			const isEditing = (state.editing === index);
 			if (li.editing != isEditing) li.editing = isEditing;
 			
 			if (!li.parentNode) this.append(li);

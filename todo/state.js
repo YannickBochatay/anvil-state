@@ -3,19 +3,19 @@
 import { createState } from "./createState.js";
 
 /**
- * @typedef {object} Task        – 
+ * @typedef {object} Task        – todo task
  * @property {string} title      – task title
  * @property {boolean} completed – task is to do or done
  */
 
 /**
- * @typedef {object} State
- * @property {Task[]} tasks
- * @property {string} filter
- * @property {number|null} editing - task being edited
+ * @typedef {object} State         – app state
+ * @property {Task[]} tasks        – task list
+ * @property {string} filter       – type of tasks displayed
+ * @property {number|null} editing – index of task being edited
  */
 
-const STORAGE_NAME = 'todos-web-components-proxy';
+const STORAGE_NAME = 'todos-web-components-proxy-ts';
 
 let storedState = localStorage.getItem(STORAGE_NAME);
 
@@ -27,7 +27,7 @@ const proxiedState = createState(initialState);
 /** @type {State} */
 export const state = proxiedState.state;
 
-export const { onStateChange, offStateChange } = proxiedState
+export const { onStateChange, offStateChange } = proxiedState;
 
 onStateChange(() => localStorage.setItem(STORAGE_NAME, JSON.stringify(state)));
 

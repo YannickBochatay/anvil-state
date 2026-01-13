@@ -2,21 +2,17 @@
 
 import { state } from '../state.js'
 
-const template = document.createElement('template');
-
-template.innerHTML = `
-	<ul class='filters'>
-		<li><a href='#/'>All</a></li>
-		<li><a href='#/active'>Active</a></li>
-		<li><a href='#/completed'>Completed</a></li>
-	</ul>
-`;
-
 export class TodoFilters extends HTMLElement {
 	
 	constructor() {
 		super();		
-		this.append(template.content.cloneNode(true));
+		this.innerHTML = `
+			<ul class="filters">
+				<li><a href="#/">All</a></li>
+				<li><a href="#/active">Active</a></li>
+				<li><a href="#/completed">Completed</a></li>
+			</ul>
+		`;
 	}
 	
 	#update = () => {

@@ -1,16 +1,12 @@
 // @ts-check
 
 /**
- * @typedef {any} Proxy
- */
-
-/**
  * @typedef {object} ProxyState
- * @property {Proxy} state                   – The proxied state object.
+ * @property {*} state                – The proxied state object.
  * @property {(callback: (prop: string, value: any) => void) => void} onStateChange
- *                                            – Registers a listener that runs when the state changes.
+ *                                    – Registers a listener that runs when the state changes.
  * @property {(callback: (prop: string, value: any) => void) => void} offStateChange
- *                                            – Unregisters a previously registered listener.
+ *                                    – Unregisters a previously registered listener.
  */
 
 /**
@@ -26,77 +22,45 @@ export function createState(initialState) {
 
   /**
    * Recursively creates a proxy around an object.
-   *
    * @param {object} target – The object to proxy.
    * @returns {Proxy}
    */
   function createProxy(target) {
     return new Proxy(target, {
       /**
-       * Intercepts property assignments.
-       *
-       * @param {object} target          – The proxy's target object.
+       * @param {*} target               – The proxy's target object.
        * @param {string|symbol} prop     – The property name being set.
        * @param {*} value                – The new value.
        * @returns {boolean}
        */
       set(target, prop, value) {
-        // @ts-ignore – allow symbols as keys
         target[prop] = value;
         listeners.forEach(cb => cb(String(prop), value));
         return true;
       },
-
       /**
-       * Intercepts property reads.
-       *
-       * @param {object} target          – The proxy's target object.
-       * @param {string|symbol} prop     – The property name being accessed.
+       * @param {*} target             – The proxy's target object.
+       * @param {string|symbol} prop   – The property name being accessed.
        * @returns {*}
        */
       get(target, prop) {
-        // Internal marker used to detect proxies
+        // from Chris Ferdinandi : https://gomakethings.com/guides/proxies/nesting/ 
         if (prop === "_isProxy") return true;
-
-        // If the value already has the marker, return it unchanged
-        // @ts-ignore – dynamic property access
         if (target[prop]?._isProxy) return target[prop];
-
-        // If the value is an object, wrap it recursively
-        // @ts-ignore – dynamic property access
-        if (target[prop] && typeof target[prop] === "object") {
-          // @ts-ignore – we know it's an object
-          return createProxy(target[prop]);
-        }
-
-        // Otherwise return the raw value
-        // @ts-ignore – dynamic property access
+        if (target[prop] && typeof target[prop] === "object") return createProxy(target[prop]);
         return target[prop];
       },
     });
   }
-
+  
   return {
-    /** @type {Proxy} */
     state: createProxy(initialState),
-
-    /**
-     * Registers a callback that will be called on every state change.
-     *
-     * @param {(prop: string, value: any) => void} callback
-     */
     onStateChange(callback) {
       listeners.push(callback);
     },
-
-    /**
-     * Removes a previously registered callback.
-     *
-     * @param {(prop: string, value: any) => void} callback
-     */
     offStateChange(callback) {
       const index = listeners.indexOf(callback);
       if (index !== -1) listeners.splice(index, 1);
-    },
+    }
   };
 }

@@ -1,5 +1,4 @@
 // @ts-check
-
 import { state } from '../state.js';
 
 const template = document.createElement('template');
@@ -30,9 +29,7 @@ export class TodoItem extends HTMLLIElement {
     return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
   }
 
-  /**
-   * @param {?number} index
-   */
+  /** @param {?number} index */
   set index(index) {
     if (index == null) {
       this.removeAttribute('index');
@@ -51,9 +48,7 @@ export class TodoItem extends HTMLLIElement {
     return this.getAttribute('label');
   }
 
-  /**
-   * @param {string} str
-   */
+  /** @param {string} str */
   set label(str) {
     if (typeof str !== 'string') throw new TypeError('label must be a string');
     this.setAttribute('label', str);
@@ -67,9 +62,7 @@ export class TodoItem extends HTMLLIElement {
     return this.hasAttribute('completed');
   }
 
-  /**
-   * @param {boolean} bool
-   */
+  /** @param {boolean} bool */
   set completed(bool) {
     if (bool) this.setAttribute('completed', '');
     else this.removeAttribute('completed');
@@ -90,8 +83,6 @@ export class TodoItem extends HTMLLIElement {
   }
 
   /**
-   * Réagit aux changements d’attributs observés.
-   *
    * @param {string} name
    * @param {string|null} oldValue
    * @param {string|null} newValue
@@ -121,12 +112,13 @@ export class TodoItem extends HTMLLIElement {
       }
       case 'editing': {
         const editing = newValue != null;
-        /** @type {import('./TodoEdit').TodoEdit|null} */
-        const editNode = this.querySelector('todo-edit');
-        if (editNode) editNode.disabled = !editing;
 
         if (editing) this.classList.add('editing');
         else this.classList.remove('editing');
+
+        /** @type {import('./TodoEdit').TodoEdit|null} */
+        const editNode = this.querySelector('todo-edit');
+        if (editNode) editNode.disabled = !editing;
       }
     }
   }
