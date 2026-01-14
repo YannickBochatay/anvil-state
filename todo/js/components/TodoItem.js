@@ -115,7 +115,7 @@ export class TodoItem extends HTMLLIElement {
 
         this.classList[editing ? 'add' : 'remove']('editing');
         
-        /** @type {import('./TodoEdit').TodoEdit|null} */
+        /** @type {import('./TodoEdit.js').TodoEdit|null} */
         const editNode = this.querySelector('todo-edit');
         if (editNode) editNode.disabled = !editing;
       }
