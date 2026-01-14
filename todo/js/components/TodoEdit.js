@@ -1,52 +1,29 @@
 // @ts-check
 import { state } from "../state.js";
 
-const template = document.createElement('template');
-
-template.innerHTML = `
-	<form>
-		<input class="edit">
-	</form>
-`;
-
-export class TodoEdit extends HTMLElement {
+export class TodoEdit extends HTMLInputElement {
 	
 	static observedAttributes = ['disabled']
-
-	/** @type {HTMLInputElement|null} */
-	#input
 	
-	constructor() {
-		super();
-		this.append(template.content.cloneNode(true));
-		this.#input = this.querySelector('input');
-	}
-
 	get index() {
     return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
   }
-
-	get disabled() {
-		return this.hasAttribute('disabled');
-	}
-
-	set disabled(bool) {
-		if (bool) this.setAttribute('disabled', '');
-		else this.removeAttribute('disabled');
-	}
 			
-	edit() {
-		const input = this.#input;
-		if (!input || this.index == null) return;
-		input.value = state.tasks[this.index].title;
-		input.focus();
-		input.selectionStart = input.selectionEnd = input.value.length;
+	#edit() {
+		if (this.index == null) return;
+		this.value = state.tasks[this.index].title;
+		this.focus();
+		this.selectionStart = this.selectionEnd = this.value.length;
+	}
+
+	#cancel() {
+		if (this.index == null) return;
+		this.value = state.tasks[this.index].title;
+		state.editing = null;
 	}
 	
-	/** @param {Event} e */
-	validate = e => {
-		e.preventDefault();
-		const value = this.#input?.value.trim();
+	#validate = () => {
+		const value = this.value.trim();
 
 		if (value && this.index != null) {
 			state.tasks[this.index].title = value;
@@ -55,19 +32,25 @@ export class TodoEdit extends HTMLElement {
 	}
 	
 	#update() {
-		if (!this.#input) return;
+		if (!this.disabled) this.#edit();
+	}
 
-		if (this.disabled) this.style.display = 'none';
-		else {
-			this.style.display = 'block';
-			this.edit();
-		}
+	/** @param {KeyboardEvent} e */
+	#handleKeyUp = e => {
+		if (this.disabled) return;
+		
+		if (e.key === 'Escape') this.#cancel();
+		else if (e.key === 'Enter') this.#validate();
 	}
 	
 	connectedCallback() {
-		this.#input?.addEventListener('blur', () => state.editing = null);
-		this.querySelector('form')?.addEventListener('submit', this.validate);
+		this.addEventListener('blur', this.#validate);
+		window.addEventListener('keyup', this.#handleKeyUp);
 		this.#update();
+	}
+
+	disconnectedCallback() {
+		window.removeEventListener('keyup', this.#handleKeyUp);
 	}
 	
 	attributeChangedCallback() {
@@ -76,4 +59,4 @@ export class TodoEdit extends HTMLElement {
 	
 }
 
-customElements.define('todo-edit', TodoEdit);
+customElements.define('todo-edit', TodoEdit, { extends : 'input' });
