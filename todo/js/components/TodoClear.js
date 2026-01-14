@@ -2,12 +2,7 @@
 import { tasks, onStateChange, offStateChange } from '../state.js';
 
 export class TodoClear extends HTMLButtonElement {
-	
-	constructor() {
-		super();
-		this.textContent = 'Clear completed';
-	}
-	
+		
 	handleEvent() {
 		let doneIndex;
 		while (doneIndex !== -1) {
@@ -17,15 +12,16 @@ export class TodoClear extends HTMLButtonElement {
 	}
 	
 	#update() {
-		const show = tasks.some(task => task.completed);
-		this.style.display = show ? 'inline' : 'none';
+		this.hidden = tasks.every(task => !task.completed);
 	}
+
 	/** @param {string} prop */
 	#handleStateChange = prop => {
-		if (prop === 'completed') this.#update();
+		if (prop === 'completed' || prop === 'length') this.#update();
 	}
 	
 	connectedCallback() {
+		this.textContent = 'Clear completed';
 		this.#update();
 		this.addEventListener('click', this);
 		onStateChange(this.#handleStateChange);

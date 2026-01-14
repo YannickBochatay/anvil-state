@@ -4,24 +4,10 @@ import { tasks } from '../state.js';
 
 export class TodoInput extends HTMLElement {
 	
+	/** @type {HTMLFormElement|null} */
+	// @ts-ignore
 	#form
-	
-	constructor() {
-		super();
-		this.innerHTML = `
-			<form>
-				<input
-					class="new-todo"
-					type="text"
-					id="new-task"
-					placeholder="What needs to be done?"
-					autofocus
-				/>
-			</form>
-		`;
-		this.#form = this.querySelector('form');
-	}
-	
+		
 	/** @param {Event} e */
 	#submit = e => {
 		e.preventDefault();
@@ -35,6 +21,18 @@ export class TodoInput extends HTMLElement {
 	}
 	
 	connectedCallback() {
+		this.innerHTML = `
+			<form>
+				<input
+					class="new-todo"
+					type="text"
+					id="new-task"
+					placeholder="What needs to be done?"
+					autofocus
+				/>
+			</form>
+		`;
+		this.#form = this.querySelector('form');
 		this.#form?.addEventListener('submit', this.#submit); 
 	}
 }

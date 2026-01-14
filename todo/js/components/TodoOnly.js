@@ -4,7 +4,7 @@ import { tasks, onStateChange, offStateChange } from '../state.js'
 export class TodoOnly extends HTMLElement {
   
   #update() {
-    this.style.display = tasks.length ? 'block' : 'none';
+    this.hidden = !tasks.length;
   }
   
   /** @param {string} prop */

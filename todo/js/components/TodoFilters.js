@@ -3,18 +3,7 @@
 import { state } from '../state.js'
 
 export class TodoFilters extends HTMLElement {
-	
-	constructor() {
-		super();		
-		this.innerHTML = `
-			<ul class="filters">
-				<li><a href="#/">All</a></li>
-				<li><a href="#/active">Active</a></li>
-				<li><a href="#/completed">Completed</a></li>
-			</ul>
-		`;
-	}
-	
+		
 	#update = () => {
 		this.querySelectorAll('a').forEach(node => node.classList.remove('selected'));
 		
@@ -28,6 +17,13 @@ export class TodoFilters extends HTMLElement {
 	}
 	
 	connectedCallback() {
+		this.innerHTML = `
+			<ul class="filters">
+				<li><a href="#/">All</a></li>
+				<li><a href="#/active">Active</a></li>
+				<li><a href="#/completed">Completed</a></li>
+			</ul>
+		`;
 		this.#update();
 		addEventListener('hashchange', this.#update);
 	}
