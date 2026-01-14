@@ -92,8 +92,6 @@ export class TodoItem extends HTMLLIElement {
       case 'label': {
         const label = this.querySelector('label');
         if (label) label.textContent = newValue ?? '';
-        const edit = this.querySelector('todo-edit');
-        if (edit) edit.setAttribute('value', newValue ?? '');
         break;
       }
       case 'index': {
@@ -112,9 +110,7 @@ export class TodoItem extends HTMLLIElement {
       }
       case 'editing': {
         const editing = newValue != null;
-
         this.classList[editing ? 'add' : 'remove']('editing');
-        
         /** @type {import('./TodoEdit.js').TodoEdit|null} */
         const editNode = this.querySelector('[is=todo-edit]');
         if (editNode) editNode.hidden = !editing;
