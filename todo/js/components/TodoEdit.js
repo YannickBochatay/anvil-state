@@ -3,7 +3,7 @@ import { state } from "../state.js";
 
 export class TodoEdit extends HTMLInputElement {
 	
-	static observedAttributes = ['disabled']
+	static observedAttributes = ['hidden']
 	
 	get index() {
     return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
@@ -32,12 +32,12 @@ export class TodoEdit extends HTMLInputElement {
 	}
 	
 	#update() {
-		if (!this.disabled) this.#edit();
+		if (!this.hidden) this.#edit();
 	}
 
 	/** @param {KeyboardEvent} e */
 	#handleKeyUp = e => {
-		if (this.disabled) return;
+		if (this.hidden) return;
 		
 		if (e.key === 'Escape') this.#cancel();
 		else if (e.key === 'Enter') this.#validate();

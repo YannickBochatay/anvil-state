@@ -9,7 +9,7 @@ template.innerHTML = `
     <label></label>
     <button class="destroy" is="todo-destroy" index="-1"></button>
   </div>
-  <input class="edit" is="todo-edit" index="-1" disabled/>
+  <input class="edit" is="todo-edit" index="-1"/>
 `;
 
 export class TodoItem extends HTMLLIElement {
@@ -117,7 +117,7 @@ export class TodoItem extends HTMLLIElement {
         
         /** @type {import('./TodoEdit.js').TodoEdit|null} */
         const editNode = this.querySelector('[is=todo-edit]');
-        if (editNode) editNode.disabled = !editing;
+        if (editNode) editNode.hidden = !editing;
       }
     }
   }
