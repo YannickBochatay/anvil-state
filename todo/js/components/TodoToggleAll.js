@@ -1,12 +1,19 @@
 // @ts-check
-import { tasks } from '../state.js';
+import { tasks, onStateChange, offStateChange } from '../state.js';
 
 export class TodoToggleAll extends HTMLElement {
+
+	/** @type {HTMLInputElement|null} */
+	// @ts-ignore
+	#input
+
+	#areAllDone() {
+		return tasks.every(task => task.completed);
+	}
 		
 	#toggleAll = () => {
-		const allDone = tasks.every(task => task.completed);
-		if (allDone) tasks.forEach(task => { if (task.completed) task.completed = false; });
-		else tasks.forEach(task => { if (!task.completed) task.completed = true; });
+		const allDone = this.#areAllDone();
+		tasks.forEach(task => task.completed = !allDone || !task.completed);
 	}
 	
 	connectedCallback() {
@@ -16,8 +23,22 @@ export class TodoToggleAll extends HTMLElement {
 				<label for="toggle-all">Mark all as complete</label>
 			</form>
 		`;
-		const input = this.querySelector('#toggle-all');
-		input?.addEventListener('change', this.#toggleAll);	
+		this.#input = this.querySelector('#toggle-all');
+		this.#input?.addEventListener('change', this.#toggleAll);
+		onStateChange(this.#handleStateChange);
+	}
+
+	disconnectedCallback() {
+		offStateChange(this.#handleStateChange);
+	}
+
+	/** @param {string} prop */
+	#handleStateChange = prop => {
+		if (!this.#input) return;
+
+		if (prop === 'completed' || prop === 'length') {
+			this.#input.checked = this.#areAllDone();
+		}
 	}
 }
 
