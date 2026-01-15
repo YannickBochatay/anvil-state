@@ -35,7 +35,7 @@ export function createState(initialState) {
        */
       set(target, prop, value) {
         target[prop] = value;
-        listeners.forEach(cb => cb(String(prop), value));
+        listeners.forEach(callback => callback(String(prop), value));
         return true;
       },
       /**
