@@ -1,6 +1,6 @@
 // @ts-check
 
-import { state } from '../state.js'
+import { state } from '../state.js';
 
 export class TodoFilters extends HTMLElement {
 		

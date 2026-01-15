@@ -1,5 +1,5 @@
 // @ts-check
-import { tasks, onStateChange, offStateChange } from '../state.js'
+import { tasks, onStateChange, offStateChange } from '../state.js';
 
 export class TodoOnly extends HTMLElement {
   
