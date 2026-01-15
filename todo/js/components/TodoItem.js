@@ -9,7 +9,7 @@ template.innerHTML = `
     <label></label>
     <button class="destroy" is="todo-destroy" index="-1"></button>
   </div>
-  <input class="edit" is="todo-edit" index="-1"/>
+  <input class="edit" is="todo-edit" index="-1" hidden/>
 `;
 
 export class TodoItem extends HTMLLIElement {

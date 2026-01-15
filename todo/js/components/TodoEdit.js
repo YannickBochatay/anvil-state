@@ -45,12 +45,12 @@ export class TodoEdit extends HTMLInputElement {
 	
 	connectedCallback() {
 		this.addEventListener('blur', this.#validate);
-		window.addEventListener('keyup', this.#handleKeyUp);
+		addEventListener('keyup', this.#handleKeyUp);
 		this.#update();
 	}
 
 	disconnectedCallback() {
-		window.removeEventListener('keyup', this.#handleKeyUp);
+		removeEventListener('keyup', this.#handleKeyUp);
 	}
 	
 	attributeChangedCallback() {
