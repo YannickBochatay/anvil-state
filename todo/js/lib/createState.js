@@ -10,7 +10,7 @@
  */
 
 /**
- * Creates a proxied state object.
+ * Creates a proxied state object and methods to register listeners on changes.
  *
  * @param {object} initialState – Plain JavaScript object containing the initial state.
  * @returns {ProxyState}
