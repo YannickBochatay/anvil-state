@@ -1,5 +1,5 @@
 // @ts-check
-import { state } from "../state.js";
+import { state } from '../state.js';
 
 export class TodoEdit extends HTMLInputElement {
 	

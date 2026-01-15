@@ -13,7 +13,7 @@ export class TodoList extends HTMLUListElement {
 	
 	#render = () => {
 		tasks.forEach((task, index) => {
-			const li = /** @type {import("./TodoItem").TodoItem} */ (
+			const li = /** @type {import('./TodoItem').TodoItem} */ (
 				this.children[index] ?? document.createElement('li', { is : 'todo-item' })
 			);
 			

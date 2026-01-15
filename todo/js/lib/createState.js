@@ -45,9 +45,9 @@ export function createState(initialState) {
        */
       get(target, prop) {
         // from Chris Ferdinandi : https://gomakethings.com/guides/proxies/nesting/ 
-        if (prop === "_isProxy") return true;
+        if (prop === '_isProxy') return true;
         if (target[prop]?._isProxy) return target[prop];
-        if (target[prop] && typeof target[prop] === "object") return createProxy(target[prop]);
+        if (target[prop] && typeof target[prop] === 'object') return createProxy(target[prop]);
         return target[prop];
       },
     });

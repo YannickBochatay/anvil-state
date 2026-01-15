@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createState } from "./lib/createState.js";
+import { createState } from './lib/createState.js';
 
 /**
  * @typedef {object} Task        – todo task
