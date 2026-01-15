@@ -26,12 +26,15 @@ export class TodoEdit extends HTMLInputElement {
 	}
 	
 	#validate = () => {
+		if (this.index == null) return;
+
 		const value = this.value.trim();
 
-		if (value && this.index != null) {
-			state.tasks[this.index].title = value;
-			state.editing = null;
-		}
+		if (value) state.tasks[this.index].title = value;
+		// If it's empty the todo is destroyed
+		else state.tasks.splice(this.index, 1);
+
+		state.editing = null;
 	}
 	
 	#update() {
