@@ -1,6 +1,9 @@
 // @ts-check
 import { state } from '../state.js';
 
+const ESCAPE_KEY = 'Escape';
+const ENTER_KEY = 'Enter';
+
 export class TodoEdit extends HTMLInputElement {
 	
 	static observedAttributes = ['hidden']
@@ -38,9 +41,9 @@ export class TodoEdit extends HTMLInputElement {
 	/** @param {KeyboardEvent} e */
 	#handleKeyUp = e => {
 		if (this.hidden) return;
-		
-		if (e.key === 'Escape') this.#cancel();
-		else if (e.key === 'Enter') this.#validate();
+
+		if (e.key === ESCAPE_KEY) this.#cancel();
+		else if (e.key === ENTER_KEY) this.#validate();
 	}
 	
 	connectedCallback() {
