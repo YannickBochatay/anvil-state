@@ -10,7 +10,7 @@ export class TodoToggle extends HTMLInputElement {
     }
   }
   
-  /** @return {number|null} */
+  /** @return {?number} */
   get index() {
     return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
   }

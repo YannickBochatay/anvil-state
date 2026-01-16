@@ -1,6 +1,7 @@
 // @ts-check
 import { state } from '../state.js';
 
+// this component is called many times so we call innerHTML only once with template element
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -21,10 +22,7 @@ export class TodoItem extends HTMLLIElement {
     this.append(template.content.cloneNode(true));
   }
 
-  /**
-   * Index de la tâche dans le tableau `tasks`.
-   * @type {?number}
-   */
+  /** @type {?number} */
   get index() {
     return this.hasAttribute('index') ? Number(this.getAttribute('index')) : null;
   }
@@ -40,10 +38,7 @@ export class TodoItem extends HTMLLIElement {
     this.setAttribute('index', String(index));
   }
 
-  /**
-   * Titre de la tâche.
-   * @type {?string}
-   */
+  /** @type {?string} */
   get label() {
     return this.getAttribute('label');
   }
@@ -54,10 +49,7 @@ export class TodoItem extends HTMLLIElement {
     this.setAttribute('label', str);
   }
 
-  /**
-   * Indique si la tâche est terminée.
-   * @type {boolean}
-   */
+  /** @type {boolean} */
   get completed() {
     return this.hasAttribute('completed');
   }
@@ -84,8 +76,8 @@ export class TodoItem extends HTMLLIElement {
 
   /**
    * @param {string} name
-   * @param {string|null} oldValue
-   * @param {string|null} newValue
+   * @param {?string} oldValue
+   * @param {?string} newValue
    */
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
@@ -103,7 +95,7 @@ export class TodoItem extends HTMLLIElement {
       case 'completed': {
         const completed = newValue != null;
         this.classList[completed ? 'add' : 'remove']('completed');
-        /** @type {HTMLInputElement|null} */
+        /** @type {?HTMLInputElement} */
         const input = this.querySelector('input.toggle');
         if (input) input.checked = completed;
         break;
@@ -111,7 +103,7 @@ export class TodoItem extends HTMLLIElement {
       case 'editing': {
         const editing = newValue != null;
         this.classList[editing ? 'add' : 'remove']('editing');
-        /** @type {import('./TodoEdit.js').TodoEdit|null} */
+        /** @type {?import('./TodoEdit.js').TodoEdit} */
         const editNode = this.querySelector('[is=todo-edit]');
         if (editNode) editNode.hidden = !editing;
       }

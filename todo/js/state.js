@@ -12,7 +12,7 @@ import { createState } from './lib/createState.js';
  * @typedef {object} State         – app state
  * @property {Task[]} tasks        – task list
  * @property {string} filter       – type of tasks displayed
- * @property {number|null} editing – index of task being edited
+ * @property {?number} editing – index of task being edited
  */
 
 const STORAGE_NAME = 'todos-web-components-proxy-ts';
