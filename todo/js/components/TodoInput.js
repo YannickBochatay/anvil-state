@@ -5,7 +5,7 @@ import { tasks } from '../state.js';
 export class TodoInput extends HTMLElement {
 	
 	/** @type {HTMLFormElement|null} */
-	// @ts-ignore
+	// @ts-ignore property is not initialized in the constructor but that's ok
 	#form
 		
 	/** @param {Event} e */

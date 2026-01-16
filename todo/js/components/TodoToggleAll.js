@@ -4,7 +4,7 @@ import { tasks, onStateChange, offStateChange } from '../state.js';
 export class TodoToggleAll extends HTMLElement {
 
 	/** @type {HTMLInputElement|null} */
-	// @ts-ignore
+	// @ts-ignore property is not initialized in the constructor but that's ok
 	#input
 
 	#areAllDone() {
