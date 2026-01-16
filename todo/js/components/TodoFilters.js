@@ -5,14 +5,12 @@ import { state } from '../state.js';
 export class TodoFilters extends HTMLElement {
 		
 	#update = () => {
-		this.querySelectorAll('a').forEach(node => node.classList.remove('selected'));
-		
-		if (location.hash) {
-			this.querySelector(`a[href='${location.hash}']`)?.classList.add('selected');
-		} else {
-			this.querySelector(`a[href='#/']`)?.classList.add('selected');
-		}
-		
+		// add class on selected item
+		this.querySelectorAll('a').forEach(node => {
+			const method = (location.hash === node.getAttribute('href')) ? 'add' : 'remove';
+			node.classList[method]('selected');
+		});
+		// store only keyword
 		state.filter = location.hash.split('/')[1];
 	}
 	
