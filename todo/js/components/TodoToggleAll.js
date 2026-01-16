@@ -3,9 +3,19 @@ import { tasks, onStateChange, offStateChange } from '../state.js';
 
 export class TodoToggleAll extends HTMLElement {
 
-	/** @type {HTMLInputElement|null} */
-	// @ts-ignore property is not initialized in the constructor but that's ok
+	/** @type {?HTMLInputElement} */
 	#input
+
+	constructor() {
+		super();
+		this.innerHTML = `
+			<form>
+				<input id="toggle-all" class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+			</form>
+		`;
+		this.#input = this.querySelector('#toggle-all');
+	}
 
 	#areAllDone() {
 		return tasks.every(task => task.completed);
@@ -17,13 +27,6 @@ export class TodoToggleAll extends HTMLElement {
 	}
 	
 	connectedCallback() {
-		this.innerHTML = `
-			<form>
-				<input id="toggle-all" class="toggle-all" type="checkbox">
-				<label for="toggle-all">Mark all as complete</label>
-			</form>
-		`;
-		this.#input = this.querySelector('#toggle-all');
 		this.#input?.addEventListener('change', this.#toggleAll);
 		onStateChange(this.#handleStateChange);
 	}

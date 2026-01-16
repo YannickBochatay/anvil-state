@@ -4,23 +4,12 @@ import { tasks } from '../state.js';
 
 export class TodoInput extends HTMLElement {
 	
-	/** @type {HTMLFormElement|null} */
-	// @ts-ignore property is not initialized in the constructor but that's ok
+	/** @type {?HTMLFormElement} */
 	#form
-		
-	/** @param {Event} e */
-	#submit = e => {
-		e.preventDefault();
-		/** @type {HTMLInputElement|null} */
-		const input = this.querySelector('#new-task')
-		const title = input?.value.trim();
-		if (title) {
-			tasks.push({ title, completed : false });
-			this.#form?.reset();
-		}
-	}
-	
-	connectedCallback() {
+
+	constructor() {
+		super();
+		// this component is called only once so we can define innerHTML in the instance
 		this.innerHTML = `
 			<form>
 				<input
@@ -33,6 +22,21 @@ export class TodoInput extends HTMLElement {
 			</form>
 		`;
 		this.#form = this.querySelector('form');
+	}
+		
+	/** @param {Event} e */
+	#submit = e => {
+		e.preventDefault();
+		/** @type {?HTMLInputElement} */
+		const input = this.querySelector('#new-task')
+		const title = input?.value.trim();
+		if (title) {
+			tasks.push({ title, completed : false });
+			this.#form?.reset();
+		}
+	}
+	
+	connectedCallback() {
 		this.#form?.addEventListener('submit', this.#submit); 
 	}
 }
