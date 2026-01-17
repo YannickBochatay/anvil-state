@@ -1,25 +1,24 @@
 import { TodoClear } from '../js/components/TodoClear.js';
 import { tasks } from '../js/state.js';
 
-QUnit.module('TodoClear', function(hooks) {
+QUnit.module('TodoClear', hooks => {
 
   let node;
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(() => {
     node = document.createElement('button', { is : 'todo-clear' });
-    let root = document.querySelector('#qunit-fixture');
-    root.append(node);
+    document.querySelector('#qunit-fixture').append(node);
   });  
 
   function shouldBeHidden() {
     return tasks.filter(task => task.completed).length === 0
   }
 
-  QUnit.test('should be instance of TodoClear', function(assert) {
+  QUnit.test('should be instance of TodoClear', assert => {
     assert.equal( node instanceof TodoClear, true);
   });
 
-  QUnit.test('should be hidden if no task is completed', function(assert) {
+  QUnit.test('should be hidden if no task is completed', assert => {
     tasks.splice(0, tasks.length);
     assert.equal(node.hidden, true);
 
@@ -27,7 +26,7 @@ QUnit.module('TodoClear', function(hooks) {
     assert.equal(node.hidden, true);
   });
 
-  QUnit.test('should be visible if at least one task is completed', function(assert) {
+  QUnit.test('should be visible if at least one task is completed', assert => {
     tasks.push({ title : 'test', completed : true });
     assert.equal(node.hidden, false);
 
@@ -36,7 +35,7 @@ QUnit.module('TodoClear', function(hooks) {
     assert.equal(node.hidden, false);
   });
 
-  QUnit.test('should remove tasks when clicked', function(assert) {
+  QUnit.test('should remove tasks when clicked', assert => {
 
     tasks.push({ title : 'test', completed : true });
     node.click();
