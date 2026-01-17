@@ -4,3 +4,4 @@ import './TodoCount.test.js';
 import './TodoDestroy.test.js';
 import './TodoOnly.test.js';
 import './TodoToggle.test.js';
+import './TodoToggleAll.test.js';
