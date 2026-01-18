@@ -1,12 +1,8 @@
 # Buildless Vanilla JS : web components, proxy, typescript checking • [TodoMVC](http://todomvc.com)
 
-Inspired by [EMOORE methodology](https://boavizta.org/en/eroom/the-genesis), reversing Moore’s Law :
+Inspired by the old [Vanilla JS website](http://vanilla-js.com/) and the new [EMOORE methodology](https://boavizta.org/en/eroom/the-genesis) (reversing Moore’s Law) :
 
 > “If we optimized software by a factor of two every two years, we’d free up half of the computing power for new uses.”
-
-## Resources
-
-- [Vanilla JS](http://vanilla-js.com/)
 
 ### Articles
 
@@ -25,15 +21,15 @@ This version of the todo app was born out of frustration with the complexity and
 
 This app strives to regain this simplicity without compromising on robustness, thanks to web standards and minimalist tools.
 
-Tools :
+### Tools
 - [Visual Studio Code](https://code.visualstudio.com/) with native [typescript checking based on JSDOC](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) ;
 - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension to serve files with auto-reload.
 
-Libraries :
+### Libraries
 - [@ungap/custom-elements](https://www.npmjs.com/package/@ungap/custom-elements) : polyfill for Safari which does not support customized built-in elements
 - [QUnit](https://qunitjs.com/) : unit testing in browser with no configuration.
 
-Web standard technologies :
+### Web standard technologies
 - [Custom Elements](https://html.spec.whatwg.org/dev/custom-elements.html#custom-elements)
 - [Proxy](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Proxy) for reactivity.
 
