@@ -9,3 +9,4 @@ import './TodoEdit.test.js';
 import './TodoFilters.test.js';
 import './TodoInput.test.js';
 import './TodoItem.test.js';
+import './TodoList.test.js';
