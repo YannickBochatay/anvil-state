@@ -1,5 +1,5 @@
 import { TodoEdit } from '../js/components/TodoEdit.js';
-import { state, tasks } from '../js/state.js';
+import { tasks } from '../js/state.js';
 
 QUnit.module('TodoEdit', hooks => {
 
