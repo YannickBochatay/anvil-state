@@ -1,25 +1,26 @@
 import { state, onStateChange, offStateChange } from '../js/state.js'
 
-QUnit.module('state', function() {
+QUnit.module('state', hooks => {
 
-  QUnit.test('reset state', function(assert) {
-    state.tasks = [];
-    assert.equal(state.tasks.length, 0);
+  const { tasks } = state;
+
+  hooks.beforeEach(() => {
+    tasks.splice(0, tasks.length);
   });
 
-  QUnit.test('subscribe on tasks length changes', function(assert) {
+  QUnit.test('subscribe on tasks length changes', assert => {
     let changes = 0;
 
     function handleChanges(prop) {
-      if (prop === 'length') changes++
+      if (prop === 'length') changes++;
     }
 
     onStateChange(handleChanges);
 
-    state.tasks.push({ title : 'test', completed : false });
+    tasks.push({ title : 'test', completed : false });
     assert.equal(changes, 1);
 
-    state.tasks.pop()
+    tasks.pop()
     assert.equal(changes, 2);
 
     state.filter = 'done';
@@ -28,7 +29,7 @@ QUnit.module('state', function() {
     offStateChange(handleChanges);
   });
 
-  QUnit.test('subscribe on filter changes', function(assert) {
+  QUnit.test('subscribe on filter changes', assert => {
     let changes = 0;
 
     function handleChanges(prop) {
@@ -46,7 +47,7 @@ QUnit.module('state', function() {
     offStateChange(handleChanges);
   });
 
-  QUnit.test('subscribe on specific task changes', function(assert) {
+  QUnit.test('subscribe on specific task changes', assert => {
     let changes = 0;
 
     function handleChanges(prop) {
@@ -55,12 +56,12 @@ QUnit.module('state', function() {
 
     onStateChange(handleChanges);
 
-    state.tasks.push({ title : 'test', completed : false });
+    tasks.push({ title : 'test', completed : false });
 
-    state.tasks[0].title = 'another title';
+    tasks[0].title = 'another title';
     assert.equal(changes, 1);
 
-    state.tasks[0].completed = true;
+    tasks[0].completed = true;
     assert.equal(changes, 2);
 
     offStateChange(handleChanges);
