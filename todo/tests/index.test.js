@@ -5,3 +5,4 @@ import './TodoDestroy.test.js';
 import './TodoOnly.test.js';
 import './TodoToggle.test.js';
 import './TodoToggleAll.test.js';
+import './TodoEdit.test.js';
