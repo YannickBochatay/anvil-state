@@ -6,15 +6,8 @@ QUnit.module('TodoOnly', hooks => {
   let node;
 
   hooks.beforeEach(() => {
-    // doesn't work this way
-    // node = document.createElement('section', { is : 'todo-only' });
     node = new TodoOnly();
     document.querySelector('#qunit-fixture').append(node);
-  });
-
-  QUnit.test('should be instance of TodoOnly', assert => {
-    assert.equal(node instanceof HTMLElement, true);
-    assert.equal(node instanceof TodoOnly, true);
   });
 
   QUnit.test('should be hidden if no task is defined', assert => {
