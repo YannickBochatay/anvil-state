@@ -7,3 +7,4 @@ import './TodoToggle.test.js';
 import './TodoToggleAll.test.js';
 import './TodoEdit.test.js';
 import './TodoFilters.test.js';
+import './TodoInput.test.js';
